@@ -13,12 +13,9 @@ public struct Confirmado: Codable {
 
     /** Estado de confirmação, true caso já tenha sido confirmado, false caso contrário. */
     public var confirmado: Bool?
-    /** Mensagem detalhada caso tenha ocorrido algum erro */
-    public var erro: String?
 
-    public init(confirmado: Bool?, erro: String?) {
+    public init(confirmado: Bool?) {
         self.confirmado = confirmado
-        self.erro = erro
     }
 
 

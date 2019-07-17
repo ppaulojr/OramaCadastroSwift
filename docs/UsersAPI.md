@@ -5,24 +5,19 @@ All URIs are relative to *https://virtserver.swaggerhub.com/api/contas/v1.0*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accountAutenticacaoPost**](UsersAPI.md#accountautenticacaopost) | **POST** /autenticacao/ | Autentica um usuário que ainda não é cliente.
+[**accountDocumentoConfirmacaoGet**](UsersAPI.md#accountdocumentoconfirmacaoget) | **GET** /perfil/{cpf}/documento/confirmacao/ | Consulta o status de confirmação do documento que foi submetido
 [**accountDocumentoPut**](UsersAPI.md#accountdocumentoput) | **PUT** /perfil/{cpf}/documento/ | Anexa ou atualiza documento para conferencia de autenticidade do perfil.
 [**accountIdentificacaoPost**](UsersAPI.md#accountidentificacaopost) | **POST** /identificacao/ | Cria um login para usuário.
 [**accountPerfilAprovacaoGet**](UsersAPI.md#accountperfilaprovacaoget) | **GET** /perfil/{cpf}/aprovacao/ | Retorna o estado de aprovação de um perfil
 [**accountPerfilCelularAutenticacaoConfirmacaoGet**](UsersAPI.md#accountperfilcelularautenticacaoconfirmacaoget) | **GET** /perfil/{cpf}/celular/autenticacao/confirmacao/ | Estado atual de confirmação do celular
 [**accountPerfilCelularAutenticacaoPost**](UsersAPI.md#accountperfilcelularautenticacaopost) | **POST** /perfil/{cpf}/celular/autenticacao/ | Gera um código para iniciar o processo de validação do número do celular
 [**accountPerfilCelularConfirmacaoPost**](UsersAPI.md#accountperfilcelularconfirmacaopost) | **POST** /perfil/{cpf}/celular/autenticacao/confirmacao/ | Confirma o numero de celular, concluindo a validação
-[**accountPerfilCelularSenhaRecuperacaoConfirmacaoGet**](UsersAPI.md#accountperfilcelularsenharecuperacaoconfirmacaoget) | **GET** /perfil/{cpf}/celular/senha/recuperacao/confirmacao/ | Estado atual de confirmação da recuperação de senha através do celular
-[**accountPerfilCpfCelularSenhaPost**](UsersAPI.md#accountperfilcpfcelularsenhapost) | **POST** /perfil/{cpf}/celular/senha/ | Redefine a senha do perfil dado o número de celular
-[**accountPerfilCpfEmailSenhaPost**](UsersAPI.md#accountperfilcpfemailsenhapost) | **POST** /perfil/{cpf}/email/senha/ | Redefine a senha do perfil dado o email
 [**accountPerfilEmailAutenticacaoConfirmacaoGet**](UsersAPI.md#accountperfilemailautenticacaoconfirmacaoget) | **GET** /perfil/{cpf}/email/autenticacao/confirmacao/ | Estado atual de confirmação do email
 [**accountPerfilEmailAutenticacaoPost**](UsersAPI.md#accountperfilemailautenticacaopost) | **POST** /perfil/{cpf}/email/autenticacao/ | Gera um código para iniciar o processo de validação do email
 [**accountPerfilEmailConfirmacaoPost**](UsersAPI.md#accountperfilemailconfirmacaopost) | **POST** /perfil/{cpf}/email/autenticacao/confirmacao/ | Confirma o email, concluindo a validação
-[**accountPerfilEmailSenhaRecuperacaoConfirmacaoGet**](UsersAPI.md#accountperfilemailsenharecuperacaoconfirmacaoget) | **GET** /perfil/{cpf}/email/senha/recuperacao/confirmacao/ | Estado atual de confirmação da recuperação de senha através de email
 [**accountPerfilGet**](UsersAPI.md#accountperfilget) | **GET** /perfil/{cpf}/ | Retorna o perfil de um usuário que ainda não foi transformado em cliente.
 [**accountPerfilPost**](UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 [**accountPerfilPut**](UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
-[**accountSenhaCelularRecuperacaoPost**](UsersAPI.md#accountsenhacelularrecuperacaopost) | **POST** /perfil/{cpf}/celular/senha/recuperacao/ | Gera um código para iniciar o processo de recuperação de senha através do celular
-[**accountSenhaEmailRecuperacaoPost**](UsersAPI.md#accountsenhaemailrecuperacaopost) | **POST** /perfil/{cpf}/email/senha/recuperacao/ | Gera um código para iniciar o processo de recuperação de senha através do email
 
 
 # **accountAutenticacaoPost**
@@ -71,6 +66,58 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountDocumentoConfirmacaoGet**
+```swift
+    open class func accountDocumentoConfirmacaoGet(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoConfirmacaoGet, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+```
+
+Consulta o status de confirmação do documento que foi submetido
+
+Consulta o status de confirmação do documento que foi submetido
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+let tipoDocumento = "tipoDocumento_example" // String | Tipo do documento
+
+// Consulta o status de confirmação do documento que foi submetido
+UsersAPI.accountDocumentoConfirmacaoGet(cpf: cpf, tipoDocumento: tipoDocumento) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+ **tipoDocumento** | **String** | Tipo do documento | 
+
+### Return type
+
+Void (empty response body)
+
+### Authorization
+
+[JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -375,162 +422,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **accountPerfilCelularSenhaRecuperacaoConfirmacaoGet**
-```swift
-    open class func accountPerfilCelularSenhaRecuperacaoConfirmacaoGet(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
-```
-
-Estado atual de confirmação da recuperação de senha através do celular
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Estado atual de confirmação da recuperação de senha através do celular
-UsersAPI.accountPerfilCelularSenhaRecuperacaoConfirmacaoGet(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-[**Confirmado**](Confirmado.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilCpfCelularSenhaPost**
-```swift
-    open class func accountPerfilCpfCelularSenhaPost(cpf: String, codigo: String, loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Redefine a senha do perfil dado o número de celular
-
-Redefine a senha do perfil dado o número de celular que tenha sido validado
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-let codigo = "codigo_example" // String | Código de recuperação de senha do número do celular
-let loginSenhaObjeto = LoginSenhaObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", senha: "senha_example") // LoginSenhaObjeto | Dados para criação do login
-
-// Redefine a senha do perfil dado o número de celular
-UsersAPI.accountPerfilCpfCelularSenhaPost(cpf: cpf, codigo: codigo, loginSenhaObjeto: loginSenhaObjeto) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
- **codigo** | **String** | Código de recuperação de senha do número do celular | 
- **loginSenhaObjeto** | [**LoginSenhaObjeto**](LoginSenhaObjeto.md) | Dados para criação do login | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilCpfEmailSenhaPost**
-```swift
-    open class func accountPerfilCpfEmailSenhaPost(cpf: String, codigo: String, loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Redefine a senha do perfil dado o email
-
-Redefine a senha do perfil dado o email
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-let codigo = "codigo_example" // String | Código de recuperação de senha do email
-let loginSenhaObjeto = LoginSenhaObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", senha: "senha_example") // LoginSenhaObjeto | Dados para criação do login
-
-// Redefine a senha do perfil dado o email
-UsersAPI.accountPerfilCpfEmailSenhaPost(cpf: cpf, codigo: codigo, loginSenhaObjeto: loginSenhaObjeto) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
- **codigo** | **String** | Código de recuperação de senha do email | 
- **loginSenhaObjeto** | [**LoginSenhaObjeto**](LoginSenhaObjeto.md) | Dados para criação do login | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **accountPerfilEmailAutenticacaoConfirmacaoGet**
 ```swift
     open class func accountPerfilEmailAutenticacaoConfirmacaoGet(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
@@ -581,7 +472,7 @@ Name | Type | Description  | Notes
 
 # **accountPerfilEmailAutenticacaoPost**
 ```swift
-    open class func accountPerfilEmailAutenticacaoPost(cpf: String, completion: @escaping (_ data: AutenticacaoCodigoObjeto?, _ error: Error?) -> Void)
+    open class func accountPerfilEmailAutenticacaoPost(cpf: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Gera um código para iniciar o processo de validação do email
@@ -614,7 +505,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AutenticacaoCodigoObjeto**](AutenticacaoCodigoObjeto.md)
+Void (empty response body)
 
 ### Authorization
 
@@ -677,57 +568,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **accountPerfilEmailSenhaRecuperacaoConfirmacaoGet**
-```swift
-    open class func accountPerfilEmailSenhaRecuperacaoConfirmacaoGet(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
-```
-
-Estado atual de confirmação da recuperação de senha através de email
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Estado atual de confirmação da recuperação de senha através de email
-UsersAPI.accountPerfilEmailSenhaRecuperacaoConfirmacaoGet(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-[**Confirmado**](Confirmado.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **accountPerfilGet**
 ```swift
-    open class func accountPerfilGet(cpf: String, completion: @escaping (_ data: PerfilUsuario?, _ error: Error?) -> Void)
+    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping (_ data: PerfilUsuario?, _ error: Error?) -> Void)
 ```
 
 Retorna o perfil de um usuário que ainda não foi transformado em cliente.
@@ -738,9 +581,10 @@ Retorna o perfil de um usuário que ainda não foi transformado em cliente.
 import OramaCadastroSwift
 
 let cpf = "cpf_example" // String | CPF do perfil
+let campos = "campos_example" // String | Lista de campos para ser inclusivamente filtrados (optional)
 
 // Retorna o perfil de um usuário que ainda não foi transformado em cliente.
-UsersAPI.accountPerfilGet(cpf: cpf) { (response, error) in
+UsersAPI.accountPerfilGet(cpf: cpf, campos: campos) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -757,6 +601,7 @@ UsersAPI.accountPerfilGet(cpf: cpf) { (response, error) in
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cpf** | **String** | CPF do perfil | 
+ **campos** | **String** | Lista de campos para ser inclusivamente filtrados | [optional] 
 
 ### Return type
 
@@ -838,7 +683,7 @@ Atualiza um perfil de usuário associado a um login para o processo de criação
 import OramaCadastroSwift
 
 let cpf = "cpf_example" // String | CPF do perfil
-let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", dataNascimento: Date(), paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example"), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(valorDePatrimonio: 123, valorDeInvestimento: 123, rendimentoMensal: 123, outrosBensValor: 123), contaBancaria: [ContaBancaria(banco: "banco_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example")]) // PerfilUsuario | Dados para criação ou atualização do perfil
+let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", dataNascimento: Date(), paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example"), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(valorDePatrimonio: "valorDePatrimonio_example", valorDeInvestimento: 123, rendimentoMensal: "rendimentoMensal_example", outrosBensValor: 123), contaBancaria: [ContaBancaria(banco: "banco_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example")]) // PerfilUsuario | Dados para criação ou atualização do perfil
 
 // Atualiza perfil para criação de conta.
 UsersAPI.accountPerfilPut(cpf: cpf, perfilUsuario: perfilUsuario) { (response, error) in
@@ -871,108 +716,6 @@ Void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountSenhaCelularRecuperacaoPost**
-```swift
-    open class func accountSenhaCelularRecuperacaoPost(cpf: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Gera um código para iniciar o processo de recuperação de senha através do celular
-
-Gera um código para iniciar o processo de recuperação de senha através do celular que tenha sido validado
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Gera um código para iniciar o processo de recuperação de senha através do celular
-UsersAPI.accountSenhaCelularRecuperacaoPost(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountSenhaEmailRecuperacaoPost**
-```swift
-    open class func accountSenhaEmailRecuperacaoPost(cpf: String, email: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Gera um código para iniciar o processo de recuperação de senha através do email
-
-Gera um código para iniciar o processo de recuperação de senha através do email que tenha sido validado
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-let email = "email_example" // String | Email do perfil
-
-// Gera um código para iniciar o processo de recuperação de senha através do email
-UsersAPI.accountSenhaEmailRecuperacaoPost(cpf: cpf, email: email) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
- **email** | **String** | Email do perfil | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

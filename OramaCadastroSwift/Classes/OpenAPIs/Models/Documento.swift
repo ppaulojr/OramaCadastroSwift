@@ -13,47 +13,18 @@ import Foundation
 public struct Documento: Codable {
 
     public enum TipoDocumento: String, Codable {
-        case passaporte = "passaporte"
-        case rne = "rne"
-        case identidadeProfissional = "identidade profissional"
-        case cnh = "cnh"
-        case carteiraDeIdentidade = "carteira de identidade"
-    }
-    public enum UfEmissao: String, Codable {
-        case ac = "AC"
-        case al = "AL"
-        case am = "AM"
-        case ap = "AP"
-        case ba = "BA"
-        case ce = "CE"
-        case df = "DF"
-        case es = "ES"
-        case go = "GO"
-        case ma = "MA"
-        case mg = "MG"
-        case ms = "MS"
-        case mt = "MT"
-        case pa = "PA"
-        case pb = "PB"
-        case pe = "PE"
-        case pi = "PI"
-        case pr = "PR"
-        case rj = "RJ"
-        case rn = "RN"
-        case ro = "RO"
-        case rr = "RR"
-        case rs = "RS"
-        case sc = "SC"
-        case se = "SE"
-        case sp = "SP"
-        case to = "TO"
+        case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
+        case passaporte = "Passaporte"
+        case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
+        case cartIdentidadeProfissional = "Cart. Identidade Profissional"
+        case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
     }
     public var tipoDocumento: TipoDocumento?
     public var numeroDocumento: String?
     /** Orgão expedidor de acordo com o tipo de documento */
     public var orgaoExpedidor: String?
     /** Unidade da Federação onde foi emitido o documeto */
-    public var ufEmissao: UfEmissao?
+    public var ufEmissao: String?
     /** Data em que o documento foi emitido no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
     public var dataEmissao: Date?
     /** Data de validade do documento no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
@@ -61,7 +32,7 @@ public struct Documento: Codable {
     /** Código de Segurança da Carteira Nacional de Habilitação */
     public var codigoSegurancaCNH: String?
 
-    public init(tipoDocumento: TipoDocumento?, numeroDocumento: String?, orgaoExpedidor: String?, ufEmissao: UfEmissao?, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
+    public init(tipoDocumento: TipoDocumento?, numeroDocumento: String?, orgaoExpedidor: String?, ufEmissao: String?, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
         self.tipoDocumento = tipoDocumento
         self.numeroDocumento = numeroDocumento
         self.orgaoExpedidor = orgaoExpedidor

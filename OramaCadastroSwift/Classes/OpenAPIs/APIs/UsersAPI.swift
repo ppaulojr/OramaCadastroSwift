@@ -49,6 +49,63 @@ open class UsersAPI {
     /**
      * enum for parameter tipoDocumento
      */
+    public enum TipoDocumento_accountDocumentoConfirmacaoGet: String {
+        case passaporte = "passaporte"
+        case rne = "rne"
+        case identidadeProfissional = "identidade profissional"
+        case cnh = "cnh"
+        case carteiraDeIdentidade = "carteira de identidade"
+    }
+
+    /**
+     Consulta o status de confirmação do documento que foi submetido
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter tipoDocumento: (query) Tipo do documento 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountDocumentoConfirmacaoGet(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoConfirmacaoGet, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountDocumentoConfirmacaoGetWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento).execute { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Consulta o status de confirmação do documento que foi submetido
+     - GET /perfil/{cpf}/documento/confirmacao/
+     - Consulta o status de confirmação do documento que foi submetido
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - parameter tipoDocumento: (query) Tipo do documento 
+     - returns: RequestBuilder<Void> 
+     */
+    open class func accountDocumentoConfirmacaoGetWithRequestBuilder(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoConfirmacaoGet) -> RequestBuilder<Void> {
+        var path = "/perfil/{cpf}/documento/confirmacao/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "tipoDocumento": tipoDocumento.rawValue
+        ])
+
+        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     * enum for parameter tipoDocumento
+     */
     public enum TipoDocumento_accountDocumentoPut: String {
         case passaporte = "passaporte"
         case rne = "rne"
@@ -298,129 +355,6 @@ open class UsersAPI {
     }
 
     /**
-     Estado atual de confirmação da recuperação de senha através do celular
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilCelularSenhaRecuperacaoConfirmacaoGet(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilCelularSenhaRecuperacaoConfirmacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-    /**
-     Estado atual de confirmação da recuperação de senha através do celular
-     - GET /perfil/{cpf}/celular/senha/recuperacao/confirmacao/
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<Confirmado> 
-     */
-    open class func accountPerfilCelularSenhaRecuperacaoConfirmacaoGetWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
-        var path = "/perfil/{cpf}/celular/senha/recuperacao/confirmacao/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     Redefine a senha do perfil dado o número de celular
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter codigo: (query) Código de recuperação de senha do número do celular 
-     - parameter loginSenhaObjeto: (body) Dados para criação do login 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilCpfCelularSenhaPost(cpf: String, codigo: String, loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilCpfCelularSenhaPostWithRequestBuilder(cpf: cpf, codigo: codigo, loginSenhaObjeto: loginSenhaObjeto).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Redefine a senha do perfil dado o número de celular
-     - POST /perfil/{cpf}/celular/senha/
-     - Redefine a senha do perfil dado o número de celular que tenha sido validado
-     - parameter cpf: (path) CPF do perfil 
-     - parameter codigo: (query) Código de recuperação de senha do número do celular 
-     - parameter loginSenhaObjeto: (body) Dados para criação do login 
-     - returns: RequestBuilder<Void> 
-     */
-    open class func accountPerfilCpfCelularSenhaPostWithRequestBuilder(cpf: String, codigo: String, loginSenhaObjeto: LoginSenhaObjeto) -> RequestBuilder<Void> {
-        var path = "/perfil/{cpf}/celular/senha/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: loginSenhaObjeto)
-
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "codigo": codigo
-        ])
-
-        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
-    }
-
-    /**
-     Redefine a senha do perfil dado o email
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter codigo: (query) Código de recuperação de senha do email 
-     - parameter loginSenhaObjeto: (body) Dados para criação do login 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilCpfEmailSenhaPost(cpf: String, codigo: String, loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilCpfEmailSenhaPostWithRequestBuilder(cpf: cpf, codigo: codigo, loginSenhaObjeto: loginSenhaObjeto).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Redefine a senha do perfil dado o email
-     - POST /perfil/{cpf}/email/senha/
-     - Redefine a senha do perfil dado o email
-     - parameter cpf: (path) CPF do perfil 
-     - parameter codigo: (query) Código de recuperação de senha do email 
-     - parameter loginSenhaObjeto: (body) Dados para criação do login 
-     - returns: RequestBuilder<Void> 
-     */
-    open class func accountPerfilCpfEmailSenhaPostWithRequestBuilder(cpf: String, codigo: String, loginSenhaObjeto: LoginSenhaObjeto) -> RequestBuilder<Void> {
-        var path = "/perfil/{cpf}/email/senha/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: loginSenhaObjeto)
-
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "codigo": codigo
-        ])
-
-        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
-    }
-
-    /**
      Estado atual de confirmação do email
      
      - parameter cpf: (path) CPF do perfil 
@@ -462,9 +396,13 @@ open class UsersAPI {
      - parameter cpf: (path) CPF do perfil 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilEmailAutenticacaoPost(cpf: String, completion: @escaping ((_ data: AutenticacaoCodigoObjeto?,_ error: Error?) -> Void)) {
+    open class func accountPerfilEmailAutenticacaoPost(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         accountPerfilEmailAutenticacaoPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
         }
     }
 
@@ -475,9 +413,9 @@ open class UsersAPI {
        - type: http
        - name: JWT
      - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<AutenticacaoCodigoObjeto> 
+     - returns: RequestBuilder<Void> 
      */
-    open class func accountPerfilEmailAutenticacaoPostWithRequestBuilder(cpf: String) -> RequestBuilder<AutenticacaoCodigoObjeto> {
+    open class func accountPerfilEmailAutenticacaoPostWithRequestBuilder(cpf: String) -> RequestBuilder<Void> {
         var path = "/perfil/{cpf}/email/autenticacao/"
         let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
         let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -487,7 +425,7 @@ open class UsersAPI {
         
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<AutenticacaoCodigoObjeto>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -534,46 +472,14 @@ open class UsersAPI {
     }
 
     /**
-     Estado atual de confirmação da recuperação de senha através de email
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilEmailSenhaRecuperacaoConfirmacaoGet(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilEmailSenhaRecuperacaoConfirmacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-    /**
-     Estado atual de confirmação da recuperação de senha através de email
-     - GET /perfil/{cpf}/email/senha/recuperacao/confirmacao/
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<Confirmado> 
-     */
-    open class func accountPerfilEmailSenhaRecuperacaoConfirmacaoGetWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
-        var path = "/perfil/{cpf}/email/senha/recuperacao/confirmacao/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
      Retorna o perfil de um usuário que ainda não foi transformado em cliente.
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilGet(cpf: String, completion: @escaping ((_ data: PerfilUsuario?,_ error: Error?) -> Void)) {
-        accountPerfilGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
+    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping ((_ data: PerfilUsuario?,_ error: Error?) -> Void)) {
+        accountPerfilGetWithRequestBuilder(cpf: cpf, campos: campos).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -585,9 +491,10 @@ open class UsersAPI {
        - type: http
        - name: JWT
      - parameter cpf: (path) CPF do perfil 
+     - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
      - returns: RequestBuilder<PerfilUsuario> 
      */
-    open class func accountPerfilGetWithRequestBuilder(cpf: String) -> RequestBuilder<PerfilUsuario> {
+    open class func accountPerfilGetWithRequestBuilder(cpf: String, campos: String? = nil) -> RequestBuilder<PerfilUsuario> {
         var path = "/perfil/{cpf}/"
         let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
         let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -595,7 +502,10 @@ open class UsersAPI {
         let URLString = OramaCadastroSwiftAPI.basePath + path
         let parameters: [String:Any]? = nil
         
-        let url = URLComponents(string: URLString)
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "campos": campos
+        ])
 
         let requestBuilder: RequestBuilder<PerfilUsuario>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
 
@@ -684,87 +594,6 @@ open class UsersAPI {
         let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
-    }
-
-    /**
-     Gera um código para iniciar o processo de recuperação de senha através do celular
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountSenhaCelularRecuperacaoPost(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountSenhaCelularRecuperacaoPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Gera um código para iniciar o processo de recuperação de senha através do celular
-     - POST /perfil/{cpf}/celular/senha/recuperacao/
-     - Gera um código para iniciar o processo de recuperação de senha através do celular que tenha sido validado
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<Void> 
-     */
-    open class func accountSenhaCelularRecuperacaoPostWithRequestBuilder(cpf: String) -> RequestBuilder<Void> {
-        var path = "/perfil/{cpf}/celular/senha/recuperacao/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     Gera um código para iniciar o processo de recuperação de senha através do email
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter email: (path) Email do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountSenhaEmailRecuperacaoPost(cpf: String, email: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountSenhaEmailRecuperacaoPostWithRequestBuilder(cpf: cpf, email: email).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Gera um código para iniciar o processo de recuperação de senha através do email
-     - POST /perfil/{cpf}/email/senha/recuperacao/
-     - Gera um código para iniciar o processo de recuperação de senha através do email que tenha sido validado
-     - parameter cpf: (path) CPF do perfil 
-     - parameter email: (path) Email do perfil 
-     - returns: RequestBuilder<Void> 
-     */
-    open class func accountSenhaEmailRecuperacaoPostWithRequestBuilder(cpf: String, email: String) -> RequestBuilder<Void> {
-        var path = "/perfil/{cpf}/email/senha/recuperacao/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let emailPreEscape = "\(APIHelper.mapValueToPathItem(email))"
-        let emailPostEscape = emailPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{email}", with: emailPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
 }
