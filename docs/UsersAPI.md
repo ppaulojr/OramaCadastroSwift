@@ -1,6 +1,6 @@
 # UsersAPI
 
-All URIs are relative to *https://virtserver.swaggerhub.com/api/contas/v1.0*
+All URIs are relative to *https://cadastro.orama.com.br/api/contas/v1.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**accountPerfilGet**](UsersAPI.md#accountperfilget) | **GET** /perfil/{cpf}/ | Retorna o perfil de um usuário que ainda não foi transformado em cliente.
 [**accountPerfilPost**](UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 [**accountPerfilPut**](UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
+[**accountPerfilSubmetidoGet**](UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
 
 
 # **accountAutenticacaoPost**
@@ -129,7 +130,7 @@ Void (empty response body)
 
 Anexa ou atualiza documento para conferencia de autenticidade do perfil.
 
-Anexa ou atualiza documento que será usado no processo conferencia de autenticidade do perfil.
+Anexa ou atualiza documento que será usado no processo conferencia de autenticidade do perfil. É recomendado fazer o upload de documentos para comprovação de identidade. Caso o perfil tiver conta bancária conjunta ou a conta seja do banco Itaú é recomendado o upload do documento 'Comprovante Bancário'.
 
 ### Example 
 ```swift
@@ -192,7 +193,7 @@ Cria um novo login que será usado para acesso ao sistema.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OramaCadastroSwift
 
-let loginSenhaObjeto = LoginSenhaObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", senha: "senha_example") // LoginSenhaObjeto | Dados para criação do login
+let loginSenhaObjeto = LoginSenhaObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date(), senha: "senha_example") // LoginSenhaObjeto | Dados para criação do login
 
 // Cria um login para usuário.
 UsersAPI.accountIdentificacaoPost(loginSenhaObjeto: loginSenhaObjeto) { (response, error) in
@@ -683,7 +684,7 @@ Atualiza um perfil de usuário associado a um login para o processo de criação
 import OramaCadastroSwift
 
 let cpf = "cpf_example" // String | CPF do perfil
-let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", dataNascimento: Date(), paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example"), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(valorDePatrimonio: "valorDePatrimonio_example", valorDeInvestimento: 123, rendimentoMensal: "rendimentoMensal_example", outrosBensValor: 123), contaBancaria: [ContaBancaria(banco: "banco_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example")]) // PerfilUsuario | Dados para criação ou atualização do perfil
+let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date()), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(valorDePatrimonio: "valorDePatrimonio_example", valorDeInvestimento: 123, rendimentoMensal: "rendimentoMensal_example", outrosBensValor: 123), contaBancaria: [ContaBancaria(banco: "banco_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example", cotitularConjuge: false, cpfConjuge: "cpfConjuge_example")]) // PerfilUsuario | Dados para criação ou atualização do perfil
 
 // Atualiza perfil para criação de conta.
 UsersAPI.accountPerfilPut(cpf: cpf, perfilUsuario: perfilUsuario) { (response, error) in
@@ -716,6 +717,54 @@ Void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountPerfilSubmetidoGet**
+```swift
+    open class func accountPerfilSubmetidoGet(cpf: String, completion: @escaping (_ data: Submetido?, _ error: Error?) -> Void)
+```
+
+Retorna o estado de submissão de um perfil
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+
+// Retorna o estado de submissão de um perfil
+UsersAPI.accountPerfilSubmetidoGet(cpf: cpf) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+
+### Return type
+
+[**Submetido**](Submetido.md)
+
+### Authorization
+
+[JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

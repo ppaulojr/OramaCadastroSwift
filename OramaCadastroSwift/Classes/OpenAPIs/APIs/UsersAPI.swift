@@ -50,11 +50,13 @@ open class UsersAPI {
      * enum for parameter tipoDocumento
      */
     public enum TipoDocumento_accountDocumentoConfirmacaoGet: String {
-        case passaporte = "passaporte"
-        case rne = "rne"
-        case identidadeProfissional = "identidade profissional"
-        case cnh = "cnh"
-        case carteiraDeIdentidade = "carteira de identidade"
+        case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
+        case passaporte = "Passaporte"
+        case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
+        case cartIdentidadeProfissional = "Cart. Identidade Profissional"
+        case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
+        case comprovanteBancário = "Comprovante Bancário"
+        case comprovanteDeResidência = "Comprovante de Residência"
     }
 
     /**
@@ -107,11 +109,13 @@ open class UsersAPI {
      * enum for parameter tipoDocumento
      */
     public enum TipoDocumento_accountDocumentoPut: String {
-        case passaporte = "passaporte"
-        case rne = "rne"
-        case identidadeProfissional = "identidade profissional"
-        case cnh = "cnh"
-        case carteiraDeIdentidade = "carteira de identidade"
+        case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
+        case passaporte = "Passaporte"
+        case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
+        case cartIdentidadeProfissional = "Cart. Identidade Profissional"
+        case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
+        case comprovanteBancário = "Comprovante Bancário"
+        case comprovanteDeResidência = "Comprovante de Residência"
     }
 
     /**
@@ -136,7 +140,7 @@ open class UsersAPI {
     /**
      Anexa ou atualiza documento para conferencia de autenticidade do perfil.
      - PUT /perfil/{cpf}/documento/
-     - Anexa ou atualiza documento que será usado no processo conferencia de autenticidade do perfil.
+     - Anexa ou atualiza documento que será usado no processo conferencia de autenticidade do perfil. É recomendado fazer o upload de documentos para comprovação de identidade. Caso o perfil tiver conta bancária conjunta ou a conta seja do banco Itaú é recomendado o upload do documento 'Comprovante Bancário'.
      - BASIC:
        - type: http
        - name: JWT
@@ -594,6 +598,42 @@ open class UsersAPI {
         let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Retorna o estado de submissão de um perfil
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilSubmetidoGet(cpf: String, completion: @escaping ((_ data: Submetido?,_ error: Error?) -> Void)) {
+        accountPerfilSubmetidoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Retorna o estado de submissão de um perfil
+     - GET /perfil/{cpf}/submetido/
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Submetido> 
+     */
+    open class func accountPerfilSubmetidoGetWithRequestBuilder(cpf: String) -> RequestBuilder<Submetido> {
+        var path = "/perfil/{cpf}/submetido/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Submetido>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
 }

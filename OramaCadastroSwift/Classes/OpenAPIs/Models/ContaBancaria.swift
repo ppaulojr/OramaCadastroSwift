@@ -13,19 +13,25 @@ import Foundation
 public struct ContaBancaria: Codable {
 
     /** Banco da conta, string com o numero do banco */
-    public var banco: String?
+    public var banco: String
     /** Agencia bancaria da conta corrente */
-    public var agencia: String?
-    /** numero da conta corrente sem o dígito verificador */
-    public var conta: String?
-    /** digito verificador da conta corrente */
-    public var digito: String?
+    public var agencia: String
+    /** Número da conta corrente sem o dígito verificador */
+    public var conta: String
+    /** Digito verificador da conta corrente */
+    public var digito: String
+    /** Informação se o conjuge é co-titular da conta corrente. Necessário caso seja especificado o cpfConjuge */
+    public var cotitularConjuge: Bool?
+    /** CPF do conjuge caso seja conta conjunta. CPF deve ser válido. O CPF tem que ter os 11 dígitos com a máscara incluindo os pontos e hífen. */
+    public var cpfConjuge: String?
 
-    public init(banco: String?, agencia: String?, conta: String?, digito: String?) {
+    public init(banco: String, agencia: String, conta: String, digito: String, cotitularConjuge: Bool?, cpfConjuge: String?) {
         self.banco = banco
         self.agencia = agencia
         self.conta = conta
         self.digito = digito
+        self.cotitularConjuge = cotitularConjuge
+        self.cpfConjuge = cpfConjuge
     }
 
 

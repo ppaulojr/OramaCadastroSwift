@@ -21,7 +21,7 @@ Run `pod install`
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/api/contas/v1.0*
+All URIs are relative to *https://cadastro.orama.com.br/api/contas/v1.0*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
 *UsersAPI* | [**accountPerfilGet**](docs/UsersAPI.md#accountperfilget) | **GET** /perfil/{cpf}/ | Retorna o perfil de um usuário que ainda não foi transformado em cliente.
 *UsersAPI* | [**accountPerfilPost**](docs/UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 *UsersAPI* | [**accountPerfilPut**](docs/UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
+*UsersAPI* | [**accountPerfilSubmetidoGet**](docs/UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
 
 
 ## Documentation For Models
@@ -60,6 +61,7 @@ Class | Method | HTTP request | Description
  - [LoginObjeto](docs/LoginObjeto.md)
  - [LoginSenhaObjeto](docs/LoginSenhaObjeto.md)
  - [PerfilUsuario](docs/PerfilUsuario.md)
+ - [Submetido](docs/Submetido.md)
  - [UsuarioSenhaObjeto](docs/UsuarioSenhaObjeto.md)
 
 

@@ -38,8 +38,6 @@ public struct PerfilUsuario: Codable {
     public var ufNascimento: String?
     /** Município em que a pessoa nascida no Brasil nasceu. Formato é o nome lexicograficamente igual a descrição do IBGE ou o código de cidade completo do IBGE */
     public var cidadeNascimento: String?
-    /** Data de nascimento da pessoa no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
-    public var dataNascimento: Date?
     /** País em que a pessoa nasceu. Código ISO 3166-1 alpha-2 */
     public var paisNascimento: String?
     /** Sexo do indivíduo */
@@ -59,13 +57,12 @@ public struct PerfilUsuario: Codable {
     public var patrimonio: DadosPatrimonial?
     public var contaBancaria: [ContaBancaria]?
 
-    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: String?, cidadeNascimento: String?, dataNascimento: Date?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String?, nomePai: String?, login: LoginObjeto?, documento: [Documento]?, profissao: DadosProfissionais?, endereco: Endereco?, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?) {
+    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: String?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String?, nomePai: String?, login: LoginObjeto?, documento: [Documento]?, profissao: DadosProfissionais?, endereco: Endereco?, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?) {
         self.usPerson = usPerson
         self.politicamenteExposto = politicamenteExposto
         self.nacionalidade = nacionalidade
         self.ufNascimento = ufNascimento
         self.cidadeNascimento = cidadeNascimento
-        self.dataNascimento = dataNascimento
         self.paisNascimento = paisNascimento
         self.sexo = sexo
         self.estadoCivil = estadoCivil

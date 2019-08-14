@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **nacionalidade** | **String** | Definição de Nacionalidade de acordo com o Art. 12 da CF | [optional] 
 **ufNascimento** | **String** | Unidade da Federação em que a pessoa nasceu | [optional] 
 **cidadeNascimento** | **String** | Município em que a pessoa nascida no Brasil nasceu. Formato é o nome lexicograficamente igual a descrição do IBGE ou o código de cidade completo do IBGE | [optional] 
-**dataNascimento** | **Date** | Data de nascimento da pessoa no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) | [optional] 
 **paisNascimento** | **String** | País em que a pessoa nasceu. Código ISO 3166-1 alpha-2 | [optional] 
 **sexo** | **String** | Sexo do indivíduo | [optional] 
 **estadoCivil** | **String** | Estado civil do usuário | [optional] 
