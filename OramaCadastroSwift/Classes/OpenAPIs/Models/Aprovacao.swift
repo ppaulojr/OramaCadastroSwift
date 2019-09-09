@@ -18,7 +18,7 @@ public struct Aprovacao: Codable {
         case indefinido = "INDEFINIDO"
     }
     /** Estado de aprovação do perfil. */
-    public var aprovado: Aprovado? = .INDEFINIDO
+    public var aprovado: Aprovado? = .indefinido
 
     public init(aprovado: Aprovado?) {
         self.aprovado = aprovado
