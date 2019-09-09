@@ -47,17 +47,17 @@ public struct PerfilUsuario: Codable {
     /** Nome do conjuge ou companheiro, necessário em casos que o estado civil seja &#39;Casado(a)&#39; ou &#39;União estável&#39; */
     public var nomeConjuge: String?
     /** Nome da mãe do usuário */
-    public var nomeMae: String?
-    /** Nome do pai do usuário */
+    public var nomeMae: String
+    /** Nome do pai do usuário. O nome deve ser string vazia ou null caso o pai seja desconhecido. */
     public var nomePai: String?
     public var login: LoginObjeto?
-    public var documento: [Documento]?
+    public var documento: [Documento]
     public var profissao: DadosProfissionais?
-    public var endereco: Endereco?
+    public var endereco: Endereco
     public var patrimonio: DadosPatrimonial?
     public var contaBancaria: [ContaBancaria]?
 
-    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: String?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String?, nomePai: String?, login: LoginObjeto?, documento: [Documento]?, profissao: DadosProfissionais?, endereco: Endereco?, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?) {
+    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: String?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String, nomePai: String?, login: LoginObjeto?, documento: [Documento], profissao: DadosProfissionais?, endereco: Endereco, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?) {
         self.usPerson = usPerson
         self.politicamenteExposto = politicamenteExposto
         self.nacionalidade = nacionalidade

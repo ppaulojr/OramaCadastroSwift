@@ -11,10 +11,16 @@ import Foundation
 
 public struct Aprovacao: Codable {
 
-    /** Estado de aprovação do perfil, true caso já tenha sido aprovado, false caso contrário. */
-    public var aprovado: Bool?
+    public enum Aprovado: String, Codable {
+        case aprovado = "APROVADO"
+        case pendente = "PENDENTE"
+        case emAnálise = "EM ANÁLISE"
+        case indefinido = "INDEFINIDO"
+    }
+    /** Estado de aprovação do perfil. */
+    public var aprovado: Aprovado? = .INDEFINIDO
 
-    public init(aprovado: Bool?) {
+    public init(aprovado: Aprovado?) {
         self.aprovado = aprovado
     }
 

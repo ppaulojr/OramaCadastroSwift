@@ -8,7 +8,7 @@
 import Foundation
 
 
-/** Documentação do Usuário */
+/** Documentação do Usuário. Deve ser enviado somente um documento na lista de documentos &#39;documento&#39;. */
 
 public struct Documento: Codable {
 

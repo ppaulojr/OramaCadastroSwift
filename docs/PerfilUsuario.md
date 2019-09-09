@@ -12,12 +12,12 @@ Name | Type | Description | Notes
 **sexo** | **String** | Sexo do indivíduo | [optional] 
 **estadoCivil** | **String** | Estado civil do usuário | [optional] 
 **nomeConjuge** | **String** | Nome do conjuge ou companheiro, necessário em casos que o estado civil seja &#39;Casado(a)&#39; ou &#39;União estável&#39; | [optional] 
-**nomeMae** | **String** | Nome da mãe do usuário | [optional] 
-**nomePai** | **String** | Nome do pai do usuário | [optional] 
+**nomeMae** | **String** | Nome da mãe do usuário | 
+**nomePai** | **String** | Nome do pai do usuário. O nome deve ser string vazia ou null caso o pai seja desconhecido. | [optional] 
 **login** | [**LoginObjeto**](LoginObjeto.md) |  | [optional] 
-**documento** | [Documento] |  | [optional] 
+**documento** | [Documento] |  | 
 **profissao** | [**DadosProfissionais**](DadosProfissionais.md) |  | [optional] 
-**endereco** | [**Endereco**](Endereco.md) |  | [optional] 
+**endereco** | [**Endereco**](Endereco.md) |  | 
 **patrimonio** | [**DadosPatrimonial**](DadosPatrimonial.md) |  | [optional] 
 **contaBancaria** | [ContaBancaria] |  | [optional] 
 
