@@ -19,12 +19,12 @@ public struct Documento: Codable {
         case cartIdentidadeProfissional = "Cart. Identidade Profissional"
         case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
     }
-    public var tipoDocumento: TipoDocumento?
-    public var numeroDocumento: String?
+    public var tipoDocumento: TipoDocumento
+    public var numeroDocumento: String
     /** Orgão expedidor de acordo com o tipo de documento */
-    public var orgaoExpedidor: String?
+    public var orgaoExpedidor: String
     /** Unidade da Federação onde foi emitido o documeto */
-    public var ufEmissao: String?
+    public var ufEmissao: String
     /** Data em que o documento foi emitido no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
     public var dataEmissao: Date?
     /** Data de validade do documento no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
@@ -32,7 +32,7 @@ public struct Documento: Codable {
     /** Código de Segurança da Carteira Nacional de Habilitação */
     public var codigoSegurancaCNH: String?
 
-    public init(tipoDocumento: TipoDocumento?, numeroDocumento: String?, orgaoExpedidor: String?, ufEmissao: String?, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
+    public init(tipoDocumento: TipoDocumento, numeroDocumento: String, orgaoExpedidor: String, ufEmissao: String, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
         self.tipoDocumento = tipoDocumento
         self.numeroDocumento = numeroDocumento
         self.orgaoExpedidor = orgaoExpedidor

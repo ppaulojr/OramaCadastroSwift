@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.11'
   s.tvos.deployment_target = '9.0'
-  s.version = '1.0.6'
+  s.version = '1.0.9'
   s.swift_version = '4.2'
   s.source = { :git => "https://github.com/ppaulojr/OramaCadastroSwift.git", :tag => s.version.to_s }
   s.authors = 'PPJ'

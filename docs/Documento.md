@@ -3,10 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tipoDocumento** | **String** |  | [optional] 
-**numeroDocumento** | **String** |  | [optional] 
-**orgaoExpedidor** | **String** | Orgão expedidor de acordo com o tipo de documento | [optional] 
-**ufEmissao** | **String** | Unidade da Federação onde foi emitido o documeto | [optional] 
+**tipoDocumento** | **String** |  | 
+**numeroDocumento** | **String** |  | 
+**orgaoExpedidor** | **String** | Orgão expedidor de acordo com o tipo de documento | 
+**ufEmissao** | **String** | Unidade da Federação onde foi emitido o documeto | 
 **dataEmissao** | **Date** | Data em que o documento foi emitido no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) | [optional] 
 **dataValidade** | **Date** | Data de validade do documento no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) | [optional] 
 **codigoSegurancaCNH** | **String** | Código de Segurança da Carteira Nacional de Habilitação | [optional] 
