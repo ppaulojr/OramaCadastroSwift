@@ -19,7 +19,7 @@ public struct ContaBancaria: Codable {
     /** Banco da conta, string com o número do banco */
     public var banco: String
     /** Tipo da conta bancária. O tipo deve ser conta corrente (CC) ou conta poupança (CP). */
-    public var tipo: Tipo = .cc
+    public var tipo: Tipo = .CC
     /** Agência da conta bancária */
     public var agencia: String
     /** Número da conta bancária sem o dígito verificador */

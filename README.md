@@ -55,6 +55,7 @@ Class | Method | HTTP request | Description
  - [DocumentoCorpo](docs/DocumentoCorpo.md)
  - [Endereco](docs/Endereco.md)
  - [Erro](docs/Erro.md)
+ - [FrontEndStep](docs/FrontEndStep.md)
  - [ListaPerfilUsuario](docs/ListaPerfilUsuario.md)
  - [LoginCriado](docs/LoginCriado.md)
  - [LoginObjeto](docs/LoginObjeto.md)

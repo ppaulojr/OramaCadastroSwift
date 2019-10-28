@@ -123,12 +123,11 @@ open class UsersAPI {
      
      - parameter cpf: (path) CPF do perfil 
      - parameter tipoDocumento: (query) Tipo do documento 
-     - parameter name: (form) Nome do atributo codificado em form-data &#39;image&#39; 
      - parameter filename: (form) Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountDocumentoPut(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, name: String, filename: URL, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountDocumentoPutWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento, name: name, filename: filename).execute { (response, error) -> Void in
+    open class func accountDocumentoPut(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, filename: URL, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountDocumentoPutWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento, filename: filename).execute { (response, error) -> Void in
             if error == nil {
                 completion((), error)
             } else {
@@ -146,18 +145,16 @@ open class UsersAPI {
        - name: JWT
      - parameter cpf: (path) CPF do perfil 
      - parameter tipoDocumento: (query) Tipo do documento 
-     - parameter name: (form) Nome do atributo codificado em form-data &#39;image&#39; 
      - parameter filename: (form) Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG 
      - returns: RequestBuilder<Void> 
      */
-    open class func accountDocumentoPutWithRequestBuilder(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, name: String, filename: URL) -> RequestBuilder<Void> {
+    open class func accountDocumentoPutWithRequestBuilder(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, filename: URL) -> RequestBuilder<Void> {
         var path = "/perfil/{cpf}/documento/"
         let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
         let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
         let URLString = OramaCadastroSwiftAPI.basePath + path
         let formParams: [String:Any?] = [
-            "name": name,
             "filename": filename
         ]
 

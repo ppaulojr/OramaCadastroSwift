@@ -11,13 +11,10 @@ import Foundation
 
 public struct DocumentoCorpo: Codable {
 
-    /** Nome do atributo codificado em form-data &#39;image&#39; */
-    public var name: String
     /** Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG */
     public var filename: URL
 
-    public init(name: String, filename: URL) {
-        self.name = name
+    public init(filename: URL) {
         self.filename = filename
     }
 

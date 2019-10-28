@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **endereco** | [**Endereco**](Endereco.md) |  | 
 **patrimonio** | [**DadosPatrimonial**](DadosPatrimonial.md) |  | [optional] 
 **contaBancaria** | [ContaBancaria] |  | [optional] 
+**frontEnd** | [**FrontEndStep**](FrontEndStep.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

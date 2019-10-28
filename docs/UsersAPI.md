@@ -125,7 +125,7 @@ Void (empty response body)
 
 # **accountDocumentoPut**
 ```swift
-    open class func accountDocumentoPut(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, name: String, filename: URL, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func accountDocumentoPut(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, filename: URL, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Anexa ou atualiza documento para conferencia de autenticidade do perfil.
@@ -139,11 +139,10 @@ import OramaCadastroSwift
 
 let cpf = "cpf_example" // String | CPF do perfil
 let tipoDocumento = "tipoDocumento_example" // String | Tipo do documento
-let name = "name_example" // String | Nome do atributo codificado em form-data 'image'
 let filename = URL(string: "https://example.com")! // URL | Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG
 
 // Anexa ou atualiza documento para conferencia de autenticidade do perfil.
-UsersAPI.accountDocumentoPut(cpf: cpf, tipoDocumento: tipoDocumento, name: name, filename: filename) { (response, error) in
+UsersAPI.accountDocumentoPut(cpf: cpf, tipoDocumento: tipoDocumento, filename: filename) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -161,7 +160,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cpf** | **String** | CPF do perfil | 
  **tipoDocumento** | **String** | Tipo do documento | 
- **name** | **String** | Nome do atributo codificado em form-data &#39;image&#39; | 
  **filename** | **URL** | Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG | 
 
 ### Return type
@@ -684,7 +682,7 @@ Atualiza um perfil de usuário associado a um login para o processo de criação
 import OramaCadastroSwift
 
 let cpf = "cpf_example" // String | CPF do perfil
-let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date()), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(faixaAplicacoes: "faixaAplicacoes_example", valorAplicacoes: 123, faixaRendimentos: "faixaRendimentos_example", valorOutrosBens: 123), contaBancaria: [ContaBancaria(banco: "banco_example", tipo: "tipo_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example", contaConjunta: false, segundoParticipanteTitular: false, cpfCotitular: "cpfCotitular_example")]) // PerfilUsuario | Dados para criação ou atualização do perfil
+let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date()), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(faixaAplicacoes: "faixaAplicacoes_example", valorAplicacoes: 123, faixaRendimentos: "faixaRendimentos_example", valorOutrosBens: 123), contaBancaria: [ContaBancaria(banco: "banco_example", tipo: "tipo_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example", contaConjunta: false, segundoParticipanteTitular: false, cpfCotitular: "cpfCotitular_example")], frontEnd: FrontEndStep(step: 123, platform: "platform_example")) // PerfilUsuario | Dados para criação ou atualização do perfil
 
 // Atualiza perfil para criação de conta.
 UsersAPI.accountPerfilPut(cpf: cpf, perfilUsuario: perfilUsuario) { (response, error) in

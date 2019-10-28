@@ -56,8 +56,9 @@ public struct PerfilUsuario: Codable {
     public var endereco: Endereco
     public var patrimonio: DadosPatrimonial?
     public var contaBancaria: [ContaBancaria]?
+    public var frontEnd: FrontEndStep?
 
-    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: String?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String, nomePai: String?, login: LoginObjeto?, documento: [Documento], profissao: DadosProfissionais?, endereco: Endereco, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?) {
+    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: String?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String, nomePai: String?, login: LoginObjeto?, documento: [Documento], profissao: DadosProfissionais?, endereco: Endereco, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?, frontEnd: FrontEndStep?) {
         self.usPerson = usPerson
         self.politicamenteExposto = politicamenteExposto
         self.nacionalidade = nacionalidade
@@ -75,6 +76,7 @@ public struct PerfilUsuario: Codable {
         self.endereco = endereco
         self.patrimonio = patrimonio
         self.contaBancaria = contaBancaria
+        self.frontEnd = frontEnd
     }
 
 
