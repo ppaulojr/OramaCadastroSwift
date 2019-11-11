@@ -25,6 +25,7 @@ All URIs are relative to *https://cadastro.orama.com.br/api/contas/v1.0*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DevelopersAPI* | [**accountIdentificacaoParceiroPost**](docs/DevelopersAPI.md#accountidentificacaoparceiropost) | **POST** /identificacao-parceiro/ | Cria um login para usuário.
 *UsersAPI* | [**accountAutenticacaoPost**](docs/UsersAPI.md#accountautenticacaopost) | **POST** /autenticacao/ | Autentica um usuário que ainda não é cliente.
 *UsersAPI* | [**accountDocumentoConfirmacaoGet**](docs/UsersAPI.md#accountdocumentoconfirmacaoget) | **GET** /perfil/{cpf}/documento/confirmacao/ | Consulta o status de confirmação do documento que foi submetido
 *UsersAPI* | [**accountDocumentoPut**](docs/UsersAPI.md#accountdocumentoput) | **PUT** /perfil/{cpf}/documento/ | Anexa ou atualiza documento para conferencia de autenticidade do perfil.
@@ -67,6 +68,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
+
+## Api-Key
+
+- **Type**: API key
+- **API key parameter name**: X-Api-Key
+- **Location**: HTTP header
 
 ## JWT
 

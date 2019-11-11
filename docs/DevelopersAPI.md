@@ -4,29 +4,27 @@ All URIs are relative to *https://cadastro.orama.com.br/api/contas/v1.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**perfilGet**](DevelopersAPI.md#perfilget) | **GET** /perfil/ | Retorna uma lista composta por objetos do tipo perfil
+[**accountIdentificacaoParceiroPost**](DevelopersAPI.md#accountidentificacaoparceiropost) | **POST** /identificacao-parceiro/ | Cria um login para usuário.
 
 
-# **perfilGet**
+# **accountIdentificacaoParceiroPost**
 ```swift
-    open class func perfilGet(limite: Double? = nil, deslocamento: Double? = nil, campos: String? = nil, completion: @escaping (_ data: ListaPerfilUsuario?, _ error: Error?) -> Void)
+    open class func accountIdentificacaoParceiroPost(loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping (_ data: LoginCriado?, _ error: Error?) -> Void)
 ```
 
-Retorna uma lista composta por objetos do tipo perfil
+Cria um login para usuário.
 
-Returna uma lista composta por objetos do tipo perfil
+Cria um novo login que será usado para acesso ao sistema.
 
 ### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import OramaCadastroSwift
 
-let limite = 987 // Double | Número máximo de elementos (optional)
-let deslocamento = 987 // Double | Número de deslocamento (offset) dos elementos (optional)
-let campos = "campos_example" // String | Lista de campos para ser inclusivamente filtrados (optional)
+let loginSenhaObjeto = LoginSenhaObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date(), senha: "senha_example") // LoginSenhaObjeto | Dados para criação do login
 
-// Retorna uma lista composta por objetos do tipo perfil
-DevelopersAPI.perfilGet(limite: limite, deslocamento: deslocamento, campos: campos) { (response, error) in
+// Cria um login para usuário.
+DevelopersAPI.accountIdentificacaoParceiroPost(loginSenhaObjeto: loginSenhaObjeto) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -42,13 +40,11 @@ DevelopersAPI.perfilGet(limite: limite, deslocamento: deslocamento, campos: camp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limite** | **Double** | Número máximo de elementos | [optional] 
- **deslocamento** | **Double** | Número de deslocamento (offset) dos elementos | [optional] 
- **campos** | **String** | Lista de campos para ser inclusivamente filtrados | [optional] 
+ **loginSenhaObjeto** | [**LoginSenhaObjeto**](LoginSenhaObjeto.md) | Dados para criação do login | 
 
 ### Return type
 
-[**ListaPerfilUsuario**](ListaPerfilUsuario.md)
+[**LoginCriado**](LoginCriado.md)
 
 ### Authorization
 
@@ -56,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

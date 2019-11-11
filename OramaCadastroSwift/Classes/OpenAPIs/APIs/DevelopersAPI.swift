@@ -13,46 +13,37 @@ extension OramaCadastroSwiftAPI {
 
 open class DevelopersAPI {
     /**
-     Retorna uma lista composta por objetos do tipo perfil
+     Cria um login para usuário.
      
-     - parameter limite: (query) Número máximo de elementos (optional)
-     - parameter deslocamento: (query) Número de deslocamento (offset) dos elementos (optional)
-     - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
+     - parameter loginSenhaObjeto: (body) Dados para criação do login 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func perfilGet(limite: Double? = nil, deslocamento: Double? = nil, campos: String? = nil, completion: @escaping ((_ data: ListaPerfilUsuario?,_ error: Error?) -> Void)) {
-        perfilGetWithRequestBuilder(limite: limite, deslocamento: deslocamento, campos: campos).execute { (response, error) -> Void in
+    open class func accountIdentificacaoParceiroPost(loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping ((_ data: LoginCriado?,_ error: Error?) -> Void)) {
+        accountIdentificacaoParceiroPostWithRequestBuilder(loginSenhaObjeto: loginSenhaObjeto).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
 
     /**
-     Retorna uma lista composta por objetos do tipo perfil
-     - GET /perfil/
-     - Returna uma lista composta por objetos do tipo perfil
-     - BASIC:
-       - type: http
+     Cria um login para usuário.
+     - POST /identificacao-parceiro/
+     - Cria um novo login que será usado para acesso ao sistema.
+     - API Key:
+       - type: apiKey X-Api-Key 
        - name: Api-Key
-     - parameter limite: (query) Número máximo de elementos (optional)
-     - parameter deslocamento: (query) Número de deslocamento (offset) dos elementos (optional)
-     - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
-     - returns: RequestBuilder<ListaPerfilUsuario> 
+     - parameter loginSenhaObjeto: (body) Dados para criação do login 
+     - returns: RequestBuilder<LoginCriado> 
      */
-    open class func perfilGetWithRequestBuilder(limite: Double? = nil, deslocamento: Double? = nil, campos: String? = nil) -> RequestBuilder<ListaPerfilUsuario> {
-        let path = "/perfil/"
+    open class func accountIdentificacaoParceiroPostWithRequestBuilder(loginSenhaObjeto: LoginSenhaObjeto) -> RequestBuilder<LoginCriado> {
+        let path = "/identificacao-parceiro/"
         let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "limite": limite, 
-            "deslocamento": deslocamento, 
-            "campos": campos
-        ])
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: loginSenhaObjeto)
 
-        let requestBuilder: RequestBuilder<ListaPerfilUsuario>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+        let url = URLComponents(string: URLString)
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        let requestBuilder: RequestBuilder<LoginCriado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
 }
