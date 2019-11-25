@@ -16,6 +16,8 @@ public struct Aprovacao: Codable {
         case pendente = "PENDENTE"
         case emAnálise = "EM ANÁLISE"
         case indefinido = "INDEFINIDO"
+        case criado = "CRIADO"
+        case erro = "ERRO"
     }
     /** Estado de aprovação do perfil. */
     public var aprovado: Aprovado? = .INDEFINIDO
