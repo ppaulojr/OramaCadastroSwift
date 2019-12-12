@@ -19,10 +19,39 @@ public struct Documento: Codable {
         case cartIdentidadeProfissional = "Cart. Identidade Profissional"
         case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
     }
+    public enum OrgaoExpedidor: String, Codable {
+        case ifp = "IFP"
+        case detran = "DETRAN"
+        case consRegDeAdministração = "Cons. Reg. de Administração"
+        case consRegDeBiblioteconomia = "Cons. Reg. de Biblioteconomia"
+        case consRegDeBiologia = "Cons. Reg. de Biologia"
+        case consRegDeContabilidade = "Cons. Reg. de Contabilidade"
+        case consRegDeCorretorImóveis = "Cons. Reg. de Corretor Imóveis"
+        case consRegDeEconomia = "Cons. Reg. de Economia"
+        case consRegDeEnfermagem = "Cons. Reg. de Enfermagem"
+        case consRegDeEngenharia = "Cons. Reg. de Engenharia"
+        case consRegDeFarmácia = "Cons. Reg. de Farmácia"
+        case consRegDeFisioterapia = "Cons. Reg. de Fisioterapia"
+        case consRegDeFonoaudiologia = "Cons. Reg. de Fonoaudiologia"
+        case consRegDeMedicina = "Cons. Reg. de Medicina"
+        case consRegDeVeterinária = "Cons. Reg. de Veterinária"
+        case consRegDeNutricionista = "Cons. Reg. de Nutricionista"
+        case consRegDeOdontologia = "Cons. Reg. de Odontologia"
+        case consRegDePsicologia = "Cons. Reg. de Psicologia"
+        case consRegDeQuímica = "Cons. Reg. de Química"
+        case consRegDeServSocial = "Cons. Reg. de Serv. Social"
+        case dptoPolíciaFederal = "Dpto. Polícia Federal"
+        case ministérioDaAeronáutica = "Ministério da Aeronáutica"
+        case ministérioDaMarinha = "Ministério da Marinha"
+        case ministérioDoExército = "Ministério do Exército"
+        case oab = "OAB"
+        case outrosExpedidores = "Outros Expedidores"
+        case ssp = "SSP"
+    }
     public var tipoDocumento: TipoDocumento
     public var numeroDocumento: String
     /** Orgão expedidor de acordo com o tipo de documento */
-    public var orgaoExpedidor: String
+    public var orgaoExpedidor: OrgaoExpedidor
     /** Unidade da Federação onde foi emitido o documeto */
     public var ufEmissao: String
     /** Data em que o documento foi emitido no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
@@ -32,7 +61,7 @@ public struct Documento: Codable {
     /** Código de Segurança da Carteira Nacional de Habilitação */
     public var codigoSegurancaCNH: String?
 
-    public init(tipoDocumento: TipoDocumento, numeroDocumento: String, orgaoExpedidor: String, ufEmissao: String, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
+    public init(tipoDocumento: TipoDocumento, numeroDocumento: String, orgaoExpedidor: OrgaoExpedidor, ufEmissao: String, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
         self.tipoDocumento = tipoDocumento
         self.numeroDocumento = numeroDocumento
         self.orgaoExpedidor = orgaoExpedidor
