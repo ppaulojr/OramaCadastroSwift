@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /** Modelo de Conta bancária no sistema bancário brasileiro. Deve ser enviado somente uma conta bancária na lista de &#39;contaBancaria&#39;. */
 
 public struct ContaBancaria: Codable {
@@ -16,10 +15,11 @@ public struct ContaBancaria: Codable {
         case cc = "CC"
         case cp = "CP"
     }
+
     /** Banco da conta, string com o número do banco */
     public var banco: String
     /** Tipo da conta bancária. O tipo deve ser conta corrente (CC) ou conta poupança (CP). */
-    public var tipo: Tipo = .CC
+    public var tipo: Tipo = .cc
     /** Agência da conta bancária */
     public var agencia: String
     /** Número da conta bancária sem o dígito verificador */
@@ -43,7 +43,4 @@ public struct ContaBancaria: Codable {
         self.segundoParticipanteTitular = segundoParticipanteTitular
         self.cpfCotitular = cpfCotitular
     }
-
-
 }
-

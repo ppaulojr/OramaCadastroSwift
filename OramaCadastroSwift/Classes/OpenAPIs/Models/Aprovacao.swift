@@ -7,10 +7,8 @@
 
 import Foundation
 
-
-
 public struct Aprovacao: Codable {
-
+    
     public enum Aprovado: String, Codable {
         case aprovado = "APROVADO"
         case pendente = "PENDENTE"
@@ -19,13 +17,11 @@ public struct Aprovacao: Codable {
         case criado = "CRIADO"
         case erro = "ERRO"
     }
+
     /** Estado de aprovação do perfil. */
-    public var aprovado: Aprovado? = .INDEFINIDO
+    public var aprovado: Aprovado? = .indefinido
 
     public init(aprovado: Aprovado?) {
         self.aprovado = aprovado
     }
-
-
 }
-
