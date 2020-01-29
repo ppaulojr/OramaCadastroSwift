@@ -61,6 +61,8 @@ public struct PerfilUsuario: Codable {
     public var usPerson: Bool? = false
     /** define se o usuário pode ou não ser enquadrado como pessoa politicamente exposta de acordo com a definição da Deliberação Coremec nº 2, de 1º de dezembro de 2006 */
     public var politicamenteExposto: Bool? = false
+    /** Define se o usuário é investidor qualifiquado. Investidor Qualificado - PF ou PJ que possuam investimentos financeiros em valor superior a 1 Milhão, Investidor aprovado em exame de qualificação técnica, e atestem por escrito sua condição de investidor qualificado. Investidores Profissionais, etc. */
+    public var investidorQualificado: Bool? = false
     /** Definição de Nacionalidade de acordo com o Art. 12 da CF */
     public var nacionalidade: Nacionalidade?
     /** Unidade da Federação em que a pessoa nasceu */
@@ -87,9 +89,10 @@ public struct PerfilUsuario: Codable {
     public var contaBancaria: [ContaBancaria]?
     public var frontEnd: FrontEndStep?
 
-    public init(usPerson: Bool?, politicamenteExposto: Bool?, nacionalidade: Nacionalidade?, ufNascimento: UfNascimento?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String, nomePai: String?, login: LoginObjeto?, documento: [Documento], profissao: DadosProfissionais?, endereco: Endereco, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?, frontEnd: FrontEndStep?) {
+    public init(usPerson: Bool?, politicamenteExposto: Bool?, investidorQualificado: Bool?, nacionalidade: Nacionalidade?, ufNascimento: UfNascimento?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, nomeMae: String, nomePai: String?, login: LoginObjeto?, documento: [Documento], profissao: DadosProfissionais?, endereco: Endereco, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?, frontEnd: FrontEndStep?) {
         self.usPerson = usPerson
         self.politicamenteExposto = politicamenteExposto
+        self.investidorQualificado = investidorQualificado
         self.nacionalidade = nacionalidade
         self.ufNascimento = ufNascimento
         self.cidadeNascimento = cidadeNascimento

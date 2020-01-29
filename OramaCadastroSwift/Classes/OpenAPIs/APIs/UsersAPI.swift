@@ -239,6 +239,96 @@ open class UsersAPI {
     }
 
     /**
+     Verifica se a assinatura eletronica já foi definida.
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilAssinaturaEletronicaGet(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilAssinaturaEletronicaGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Verifica se a assinatura eletronica já foi definida.
+     - GET /perfil/{cpf}/assinatura-eletronica/
+     - Verifica se a assinatura eletronica já foi definida.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Void> 
+     */
+    open class func accountPerfilAssinaturaEletronicaGetWithRequestBuilder(cpf: String) -> RequestBuilder<Void> {
+        var path = "/perfil/{cpf}/assinatura-eletronica/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Realiza o cadastro da assinatura eletrônica do perfil.
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter assinaturaEletronica: (body) Dados para criação da assinatura eletrônica 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilAssinaturaEletronicaPost(cpf: String, assinaturaEletronica: AssinaturaEletronica, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilAssinaturaEletronicaPostWithRequestBuilder(cpf: cpf, assinaturaEletronica: assinaturaEletronica).execute { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Realiza o cadastro da assinatura eletrônica do perfil.
+     - POST /perfil/{cpf}/assinatura-eletronica/
+     - Cadastra a assinatura eletrônica do perfil, realiza validação da assinatura eletronica. A assinatura eletrônica deve: TODO adicionar as regras de vlidação.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - parameter assinaturaEletronica: (body) Dados para criação da assinatura eletrônica 
+     - returns: RequestBuilder<Void> 
+     */
+    open class func accountPerfilAssinaturaEletronicaPostWithRequestBuilder(cpf: String, assinaturaEletronica: AssinaturaEletronica) -> RequestBuilder<Void> {
+        var path = "/perfil/{cpf}/assinatura-eletronica/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: assinaturaEletronica)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Estado atual de confirmação do celular
      
      - parameter cpf: (path) CPF do perfil 
