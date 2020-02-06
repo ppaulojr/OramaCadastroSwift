@@ -43,6 +43,9 @@ Class | Method | HTTP request | Description
 *UsersAPI* | [**accountPerfilPost**](docs/UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 *UsersAPI* | [**accountPerfilPut**](docs/UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
 *UsersAPI* | [**accountPerfilSubmetidoGet**](docs/UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
+*UsersAPI* | [**accountPerfilTermosConfirmacaoGet**](docs/UsersAPI.md#accountperfiltermosconfirmacaoget) | **GET** /perfil/{cpf}/termos/confirmacao/ | Estado atual de confirmação do aceite de termos
+*UsersAPI* | [**accountPerfilTermosConfirmacaoPost**](docs/UsersAPI.md#accountperfiltermosconfirmacaopost) | **POST** /perfil/{cpf}/termos/confirmacao/ | Confirma o o aceite de termos
+*UsersAPI* | [**accountPerfilTermosGet**](docs/UsersAPI.md#accountperfiltermosget) | **GET** /perfil/{cpf}/termos/ | Consulta os termos requeridos para o perfil
 
 
 ## Documentation For Models
@@ -66,6 +69,7 @@ Class | Method | HTTP request | Description
  - [LoginSenhaObjeto](docs/LoginSenhaObjeto.md)
  - [PerfilUsuario](docs/PerfilUsuario.md)
  - [Submetido](docs/Submetido.md)
+ - [Termos](docs/Termos.md)
  - [UsuarioSenhaObjeto](docs/UsuarioSenhaObjeto.md)
 
 

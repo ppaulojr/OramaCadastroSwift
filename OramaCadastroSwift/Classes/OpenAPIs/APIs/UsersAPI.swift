@@ -723,5 +723,114 @@ open class UsersAPI {
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
+    /**
+     Estado atual de confirmação do aceite de termos
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilTermosConfirmacaoGet(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilTermosConfirmacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Estado atual de confirmação do aceite de termos
+     - GET /perfil/{cpf}/termos/confirmacao/
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Confirmado> 
+     */
+    open class func accountPerfilTermosConfirmacaoGetWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
+        var path = "/perfil/{cpf}/termos/confirmacao/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Confirma o o aceite de termos
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilTermosConfirmacaoPost(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilTermosConfirmacaoPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Confirma o o aceite de termos
+     - POST /perfil/{cpf}/termos/confirmacao/
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Confirmado> 
+     */
+    open class func accountPerfilTermosConfirmacaoPostWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
+        var path = "/perfil/{cpf}/termos/confirmacao/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Consulta os termos requeridos para o perfil
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilTermosGet(cpf: String, completion: @escaping ((_ data: [Termos]?,_ error: Error?) -> Void)) {
+        accountPerfilTermosGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Consulta os termos requeridos para o perfil
+     - GET /perfil/{cpf}/termos/
+     - Consulta os termos exigidos para o perfil
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<[Termos]> 
+     */
+    open class func accountPerfilTermosGetWithRequestBuilder(cpf: String) -> RequestBuilder<[Termos]> {
+        var path = "/perfil/{cpf}/termos/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<[Termos]>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
 }
 }

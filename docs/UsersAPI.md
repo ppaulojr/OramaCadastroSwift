@@ -21,6 +21,9 @@ Method | HTTP request | Description
 [**accountPerfilPost**](UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 [**accountPerfilPut**](UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
 [**accountPerfilSubmetidoGet**](UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
+[**accountPerfilTermosConfirmacaoGet**](UsersAPI.md#accountperfiltermosconfirmacaoget) | **GET** /perfil/{cpf}/termos/confirmacao/ | Estado atual de confirmação do aceite de termos
+[**accountPerfilTermosConfirmacaoPost**](UsersAPI.md#accountperfiltermosconfirmacaopost) | **POST** /perfil/{cpf}/termos/confirmacao/ | Confirma o o aceite de termos
+[**accountPerfilTermosGet**](UsersAPI.md#accountperfiltermosget) | **GET** /perfil/{cpf}/termos/ | Consulta os termos requeridos para o perfil
 
 
 # **accountAutenticacaoPost**
@@ -859,6 +862,152 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Submetido**](Submetido.md)
+
+### Authorization
+
+[JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountPerfilTermosConfirmacaoGet**
+```swift
+    open class func accountPerfilTermosConfirmacaoGet(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
+```
+
+Estado atual de confirmação do aceite de termos
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+
+// Estado atual de confirmação do aceite de termos
+UsersAPI.accountPerfilTermosConfirmacaoGet(cpf: cpf) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+
+### Return type
+
+[**Confirmado**](Confirmado.md)
+
+### Authorization
+
+[JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountPerfilTermosConfirmacaoPost**
+```swift
+    open class func accountPerfilTermosConfirmacaoPost(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
+```
+
+Confirma o o aceite de termos
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+
+// Confirma o o aceite de termos
+UsersAPI.accountPerfilTermosConfirmacaoPost(cpf: cpf) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+
+### Return type
+
+[**Confirmado**](Confirmado.md)
+
+### Authorization
+
+[JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountPerfilTermosGet**
+```swift
+    open class func accountPerfilTermosGet(cpf: String, completion: @escaping (_ data: [Termos]?, _ error: Error?) -> Void)
+```
+
+Consulta os termos requeridos para o perfil
+
+Consulta os termos exigidos para o perfil
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+
+// Consulta os termos requeridos para o perfil
+UsersAPI.accountPerfilTermosGet(cpf: cpf) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+
+### Return type
+
+[**[Termos]**](Termos.md)
 
 ### Authorization
 
