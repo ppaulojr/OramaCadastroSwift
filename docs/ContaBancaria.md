@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **banco** | **String** | Banco da conta, string com o número do banco | 
-**tipo** | **String** | Tipo da conta bancária. O tipo deve ser conta corrente (CC) ou conta poupança (CP). | [default to .CC]
+**tipo** | **String** | Tipo da conta bancária. O tipo deve ser conta corrente (CC) ou conta poupança (CP). | [default to .cc]
 **agencia** | **String** | Agência da conta bancária | 
 **conta** | **String** | Número da conta bancária sem o dígito verificador | 
 **digito** | **String** | Digito verificador da conta bancária | 

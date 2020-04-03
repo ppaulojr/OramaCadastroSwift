@@ -9,9 +9,9 @@ import Foundation
 
 
 
-public struct Aprovacao: Codable {
+@objc public class Aprovacao: NSObject, Codable { 
 
-    public enum Aprovado: String, Codable {
+    public enum Aprovado: String, Codable, CaseIterable {
         case aprovado = "APROVADO"
         case pendente = "PENDENTE"
         case emAnálise = "EM ANÁLISE"
@@ -20,12 +20,10 @@ public struct Aprovacao: Codable {
         case erro = "ERRO"
     }
     /** Estado de aprovação do perfil. */
-    public var aprovado: Aprovado? = .INDEFINIDO
+    public var aprovado: Aprovado? = .indefinido
 
     public init(aprovado: Aprovado?) {
         self.aprovado = aprovado
     }
 
-
 }
-

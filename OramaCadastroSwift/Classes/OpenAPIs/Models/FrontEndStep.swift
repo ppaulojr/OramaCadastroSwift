@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct FrontEndStep: Codable {
+@objc public class FrontEndStep: NSObject, Codable { 
 
     /** Número positivo inteiro para registrar qual &#39;step&#39; do ponto de vista de UI/front-end o Perfil se encontra. */
     public var step: Double?
@@ -21,6 +21,4 @@ public struct FrontEndStep: Codable {
         self.platform = platform
     }
 
-
 }
-

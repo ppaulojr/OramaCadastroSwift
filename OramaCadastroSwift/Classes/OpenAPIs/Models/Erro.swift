@@ -7,10 +7,9 @@
 
 import Foundation
 
-
 /** Mensagem de erro detalhada */
 
-public struct Erro: Codable {
+@objc public class Erro: NSObject, Codable { 
 
     /** Conteúdo da mensagem de erro. */
     public var mensagem: Any?
@@ -19,6 +18,4 @@ public struct Erro: Codable {
         self.mensagem = mensagem
     }
 
-
 }
-

@@ -7,65 +7,42 @@
 
 import Foundation
 
-public typealias EncodeResult = (data: Data?, error: Error?)
-
 open class CodableHelper {
 
-    public static var dateformatter: DateFormatter?
-
-    open class func decode<T>(_ type: T.Type, from data: Data) -> (decodableObj: T?, error: Error?) where T : Decodable {
-        var returnedDecodable: T? = nil
-        var returnedError: Error? = nil
-
+    private static var customDateFormatter: DateFormatter?
+    private static var defaultDateFormatter: DateFormatter = OpenISO8601DateFormatter()
+    private static var customJSONDecoder: JSONDecoder?
+    private static var defaultJSONDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        if let df = self.dateformatter {
-            decoder.dateDecodingStrategy = .formatted(df)
-        } else {
-            decoder.dataDecodingStrategy = .base64
-            let formatter = DateFormatter()
-            formatter.calendar = Calendar(identifier: .iso8601)
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.timeZone = TimeZone(secondsFromGMT: 0)
-            formatter.dateFormat = Configuration.dateFormat
-            decoder.dateDecodingStrategy = .formatted(formatter)
-        }
+        decoder.dateDecodingStrategy = .formatted(CodableHelper.dateFormatter)
+        return decoder
+    }()
+    private static var customJSONEncoder: JSONEncoder?
+    private static var defaultJSONEncoder: JSONEncoder = {
+       let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .formatted(CodableHelper.dateFormatter)
+        encoder.outputFormatting = .prettyPrinted
+        return encoder
+    }()
 
-        do {
-            returnedDecodable = try decoder.decode(type, from: data)
-        } catch {
-            returnedError = error
-        }
-
-        return (returnedDecodable, returnedError)
+    public static var dateFormatter: DateFormatter {
+        get { return self.customDateFormatter ?? self.defaultDateFormatter }
+        set { self.customDateFormatter = newValue }
+    }
+    public static var jsonDecoder: JSONDecoder {
+        get { return self.customJSONDecoder ?? self.defaultJSONDecoder }
+        set { self.customJSONDecoder = newValue }
+    }
+    public static var jsonEncoder: JSONEncoder {
+        get { return self.customJSONEncoder ?? self.defaultJSONEncoder }
+        set { self.customJSONEncoder = newValue }
     }
 
-    open class func encode<T>(_ value: T, prettyPrint: Bool = false) -> EncodeResult where T : Encodable {
-        var returnedData: Data?
-        var returnedError: Error? = nil
-
-        let encoder = JSONEncoder()
-        if prettyPrint {
-            encoder.outputFormatting = .prettyPrinted
-        }
-        if let df = self.dateformatter {
-            encoder.dateEncodingStrategy = .formatted(df)
-        } else {
-            encoder.dataEncodingStrategy = .base64
-            let formatter = DateFormatter()
-            formatter.calendar = Calendar(identifier: .iso8601)
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.timeZone = TimeZone(secondsFromGMT: 0)
-            formatter.dateFormat = Configuration.dateFormat
-            encoder.dateEncodingStrategy = .formatted(formatter)
-        }
-
-        do {
-            returnedData = try encoder.encode(value)
-        } catch {
-            returnedError = error
-        }
-
-        return (returnedData, returnedError)
+    open class func decode<T>(_ type: T.Type, from data: Data) -> Result<T, Error> where T: Decodable {
+        return Result { try self.jsonDecoder.decode(type, from: data) }
     }
 
+    open class func encode<T>(_ value: T) -> Result<Data, Error> where T: Encodable {
+        return Result { try self.jsonEncoder.encode(value) }
+    }
 }

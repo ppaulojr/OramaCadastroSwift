@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct ListaPerfilUsuario: Codable {
+@objc public class ListaPerfilUsuario: NSObject, Codable { 
 
     /** quantidade de elementos que foram retornados */
     public var quantidade: Double?
@@ -27,6 +27,4 @@ public struct ListaPerfilUsuario: Codable {
         self.resultados = resultados
     }
 
-
 }
-

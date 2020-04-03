@@ -6,21 +6,26 @@
 //
 
 import Foundation
-import Alamofire
 
 extension OramaCadastroSwiftAPI {
 
 
-open class UsersAPI {
+@objc open class UsersAPI : NSObject {
     /**
      Autentica um usuário que ainda não é cliente.
      
      - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountAutenticacaoPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping ((_ data: AutenticacaoObjeto?,_ error: Error?) -> Void)) {
-        accountAutenticacaoPostWithRequestBuilder(usuarioSenhaObjeto: usuarioSenhaObjeto).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountAutenticacaoPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: AutenticacaoObjeto?,_ error: Error?) -> Void)) {
+        accountAutenticacaoPostWithRequestBuilder(usuarioSenhaObjeto: usuarioSenhaObjeto).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -49,7 +54,7 @@ open class UsersAPI {
     /**
      * enum for parameter tipoDocumento
      */
-    public enum TipoDocumento_accountDocumentoConfirmacaoGet: String {
+    public enum TipoDocumento_accountDocumentoConfirmacaoGet: String, CaseIterable {
         case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
         case passaporte = "Passaporte"
         case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
@@ -64,13 +69,15 @@ open class UsersAPI {
      
      - parameter cpf: (path) CPF do perfil 
      - parameter tipoDocumento: (query) Tipo do documento 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountDocumentoConfirmacaoGet(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoConfirmacaoGet, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountDocumentoConfirmacaoGetWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
+    open class func accountDocumentoConfirmacaoGet(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoConfirmacaoGet, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountDocumentoConfirmacaoGetWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
                 completion(nil, error)
             }
         }
@@ -97,7 +104,7 @@ open class UsersAPI {
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "tipoDocumento": tipoDocumento.rawValue
+            "tipoDocumento": tipoDocumento.encodeToJSON()
         ])
 
         let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
@@ -108,7 +115,7 @@ open class UsersAPI {
     /**
      * enum for parameter tipoDocumento
      */
-    public enum TipoDocumento_accountDocumentoPut: String {
+    public enum TipoDocumento_accountDocumentoPut: String, CaseIterable {
         case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
         case passaporte = "Passaporte"
         case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
@@ -124,13 +131,15 @@ open class UsersAPI {
      - parameter cpf: (path) CPF do perfil 
      - parameter tipoDocumento: (query) Tipo do documento 
      - parameter filename: (form) Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountDocumentoPut(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, filename: URL, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountDocumentoPutWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento, filename: filename).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
+    open class func accountDocumentoPut(cpf: String, tipoDocumento: TipoDocumento_accountDocumentoPut, filename: URL, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountDocumentoPutWithRequestBuilder(cpf: cpf, tipoDocumento: tipoDocumento, filename: filename).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
                 completion(nil, error)
             }
         }
@@ -155,7 +164,7 @@ open class UsersAPI {
         path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
         let URLString = OramaCadastroSwiftAPI.basePath + path
         let formParams: [String:Any?] = [
-            "filename": filename
+            "filename": filename.encodeToJSON()
         ]
 
         let nonNullParameters = APIHelper.rejectNil(formParams)
@@ -163,7 +172,7 @@ open class UsersAPI {
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "tipoDocumento": tipoDocumento.rawValue
+            "tipoDocumento": tipoDocumento.encodeToJSON()
         ])
 
         let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
@@ -175,11 +184,17 @@ open class UsersAPI {
      Cria um login para usuário.
      
      - parameter loginSenhaObjeto: (body) Dados para criação do login 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountIdentificacaoPost(loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping ((_ data: LoginCriado?,_ error: Error?) -> Void)) {
-        accountIdentificacaoPostWithRequestBuilder(loginSenhaObjeto: loginSenhaObjeto).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountIdentificacaoPost(loginSenhaObjeto: LoginSenhaObjeto, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: LoginCriado?,_ error: Error?) -> Void)) {
+        accountIdentificacaoPostWithRequestBuilder(loginSenhaObjeto: loginSenhaObjeto).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -206,11 +221,17 @@ open class UsersAPI {
      Retorna o estado de aprovação de um perfil
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilAprovacaoGet(cpf: String, completion: @escaping ((_ data: Aprovacao?,_ error: Error?) -> Void)) {
-        accountPerfilAprovacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilAprovacaoGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Aprovacao?,_ error: Error?) -> Void)) {
+        accountPerfilAprovacaoGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -239,104 +260,20 @@ open class UsersAPI {
     }
 
     /**
-     Verifica se a assinatura eletronica já foi definida.
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilAssinaturaEletronicaGet(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilAssinaturaEletronicaGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Verifica se a assinatura eletronica já foi definida.
-     - GET /perfil/{cpf}/assinatura-eletronica/
-     - Verifica se a assinatura eletronica já foi definida.
-     - API Key:
-       - type: apiKey X-Api-Key 
-       - name: Api-Key
-     - BASIC:
-       - type: http
-       - name: JWT
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<Void> 
-     */
-    open class func accountPerfilAssinaturaEletronicaGetWithRequestBuilder(cpf: String) -> RequestBuilder<Void> {
-        var path = "/perfil/{cpf}/assinatura-eletronica/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     Realiza o cadastro da assinatura eletrônica do perfil.
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter assinaturaEletronica: (body) Dados para criação da assinatura eletrônica 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilAssinaturaEletronicaPost(cpf: String, assinaturaEletronica: AssinaturaEletronica, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilAssinaturaEletronicaPostWithRequestBuilder(cpf: cpf, assinaturaEletronica: assinaturaEletronica).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    /**
-     Realiza o cadastro da assinatura eletrônica do perfil.
-     - POST /perfil/{cpf}/assinatura-eletronica/
-     - Cadastra a assinatura eletrônica do perfil, realiza validação da assinatura eletronica. A assinatura eletrônica deve: TODO adicionar as regras de vlidação.
-     - API Key:
-       - type: apiKey X-Api-Key 
-       - name: Api-Key
-     - BASIC:
-       - type: http
-       - name: JWT
-     - parameter cpf: (path) CPF do perfil 
-     - parameter assinaturaEletronica: (body) Dados para criação da assinatura eletrônica 
-     - returns: RequestBuilder<Void> 
-     */
-    open class func accountPerfilAssinaturaEletronicaPostWithRequestBuilder(cpf: String, assinaturaEletronica: AssinaturaEletronica) -> RequestBuilder<Void> {
-        var path = "/perfil/{cpf}/assinatura-eletronica/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: assinaturaEletronica)
-
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
-    }
-
-    /**
      Estado atual de confirmação do celular
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilCelularAutenticacaoConfirmacaoGet(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilCelularAutenticacaoConfirmacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilCelularAutenticacaoConfirmacaoGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilCelularAutenticacaoConfirmacaoGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -368,13 +305,15 @@ open class UsersAPI {
      Gera um código para iniciar o processo de validação do número do celular
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilCelularAutenticacaoPost(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilCelularAutenticacaoPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
+    open class func accountPerfilCelularAutenticacaoPost(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilCelularAutenticacaoPostWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
                 completion(nil, error)
             }
         }
@@ -409,11 +348,17 @@ open class UsersAPI {
      
      - parameter cpf: (path) CPF do perfil 
      - parameter codigo: (query) Código de validação para confirmar o número de celular 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilCelularConfirmacaoPost(cpf: String, codigo: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilCelularConfirmacaoPostWithRequestBuilder(cpf: cpf, codigo: codigo).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilCelularConfirmacaoPost(cpf: String, codigo: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilCelularConfirmacaoPostWithRequestBuilder(cpf: cpf, codigo: codigo).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -437,7 +382,7 @@ open class UsersAPI {
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "codigo": codigo
+            "codigo": codigo.encodeToJSON()
         ])
 
         let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
@@ -449,11 +394,17 @@ open class UsersAPI {
      Estado atual de confirmação do email
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilEmailAutenticacaoConfirmacaoGet(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilEmailAutenticacaoConfirmacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilEmailAutenticacaoConfirmacaoGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilEmailAutenticacaoConfirmacaoGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -485,13 +436,15 @@ open class UsersAPI {
      Gera um código para iniciar o processo de validação do email
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilEmailAutenticacaoPost(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilEmailAutenticacaoPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
+    open class func accountPerfilEmailAutenticacaoPost(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilEmailAutenticacaoPostWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
                 completion(nil, error)
             }
         }
@@ -526,11 +479,17 @@ open class UsersAPI {
      
      - parameter cpf: (path) CPF do perfil 
      - parameter codigo: (query) Código de validação para confirmar o email 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilEmailConfirmacaoPost(cpf: String, codigo: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilEmailConfirmacaoPostWithRequestBuilder(cpf: cpf, codigo: codigo).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilEmailConfirmacaoPost(cpf: String, codigo: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilEmailConfirmacaoPostWithRequestBuilder(cpf: cpf, codigo: codigo).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -554,7 +513,7 @@ open class UsersAPI {
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "codigo": codigo
+            "codigo": codigo.encodeToJSON()
         ])
 
         let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
@@ -567,11 +526,17 @@ open class UsersAPI {
      
      - parameter cpf: (path) CPF do perfil 
      - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping ((_ data: PerfilUsuario?,_ error: Error?) -> Void)) {
-        accountPerfilGetWithRequestBuilder(cpf: cpf, campos: campos).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilGet(cpf: String, campos: String? = nil, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: PerfilUsuario?,_ error: Error?) -> Void)) {
+        accountPerfilGetWithRequestBuilder(cpf: cpf, campos: campos).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -595,7 +560,7 @@ open class UsersAPI {
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "campos": campos
+            "campos": campos?.encodeToJSON()
         ])
 
         let requestBuilder: RequestBuilder<PerfilUsuario>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
@@ -607,13 +572,15 @@ open class UsersAPI {
      Submete o perfil de usuário associado a um login para ser criado como cliente.
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilPost(cpf: String, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
+    open class func accountPerfilPost(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilPostWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
                 completion(nil, error)
             }
         }
@@ -649,13 +616,15 @@ open class UsersAPI {
      
      - parameter cpf: (path) CPF do perfil 
      - parameter perfilUsuario: (body) Dados para criação ou atualização do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilPut(cpf: String, perfilUsuario: PerfilUsuario, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        accountPerfilPutWithRequestBuilder(cpf: cpf, perfilUsuario: perfilUsuario).execute { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
+    open class func accountPerfilPut(cpf: String, perfilUsuario: PerfilUsuario, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilPutWithRequestBuilder(cpf: cpf, perfilUsuario: perfilUsuario).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
                 completion(nil, error)
             }
         }
@@ -691,11 +660,17 @@ open class UsersAPI {
      Retorna o estado de submissão de um perfil
      
      - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilSubmetidoGet(cpf: String, completion: @escaping ((_ data: Submetido?,_ error: Error?) -> Void)) {
-        accountPerfilSubmetidoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountPerfilSubmetidoGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Submetido?,_ error: Error?) -> Void)) {
+        accountPerfilSubmetidoGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
@@ -719,115 +694,6 @@ open class UsersAPI {
         let url = URLComponents(string: URLString)
 
         let requestBuilder: RequestBuilder<Submetido>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     Estado atual de confirmação do aceite de termos
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilTermosConfirmacaoGet(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilTermosConfirmacaoGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-    /**
-     Estado atual de confirmação do aceite de termos
-     - GET /perfil/{cpf}/termos/confirmacao/
-     - BASIC:
-       - type: http
-       - name: JWT
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<Confirmado> 
-     */
-    open class func accountPerfilTermosConfirmacaoGetWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
-        var path = "/perfil/{cpf}/termos/confirmacao/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     Confirma o o aceite de termos
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilTermosConfirmacaoPost(cpf: String, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
-        accountPerfilTermosConfirmacaoPostWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-    /**
-     Confirma o o aceite de termos
-     - POST /perfil/{cpf}/termos/confirmacao/
-     - BASIC:
-       - type: http
-       - name: JWT
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<Confirmado> 
-     */
-    open class func accountPerfilTermosConfirmacaoPostWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
-        var path = "/perfil/{cpf}/termos/confirmacao/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     Consulta os termos requeridos para o perfil
-     
-     - parameter cpf: (path) CPF do perfil 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func accountPerfilTermosGet(cpf: String, completion: @escaping ((_ data: [Termos]?,_ error: Error?) -> Void)) {
-        accountPerfilTermosGetWithRequestBuilder(cpf: cpf).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-    /**
-     Consulta os termos requeridos para o perfil
-     - GET /perfil/{cpf}/termos/
-     - Consulta os termos exigidos para o perfil
-     - BASIC:
-       - type: http
-       - name: JWT
-     - parameter cpf: (path) CPF do perfil 
-     - returns: RequestBuilder<[Termos]> 
-     */
-    open class func accountPerfilTermosGetWithRequestBuilder(cpf: String) -> RequestBuilder<[Termos]> {
-        var path = "/perfil/{cpf}/termos/"
-        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
-        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
-        let URLString = OramaCadastroSwiftAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<[Termos]>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }

@@ -7,12 +7,11 @@
 
 import Foundation
 
-
 /** Informação sobre o Patrimônio do usuário */
 
-public struct DadosPatrimonial: Codable {
+@objc public class DadosPatrimonial: NSObject, Codable { 
 
-    public enum FaixaAplicacoes: String, Codable {
+    public enum FaixaAplicacoes: String, Codable, CaseIterable {
         case _0 = "0"
         case _1 = "1"
         case _2 = "2"
@@ -21,7 +20,7 @@ public struct DadosPatrimonial: Codable {
         case _5 = "5"
         case _6 = "6"
     }
-    public enum FaixaRendimentos: String, Codable {
+    public enum FaixaRendimentos: String, Codable, CaseIterable {
         case _0 = "0"
         case _1 = "1"
         case _2 = "2"
@@ -46,6 +45,4 @@ public struct DadosPatrimonial: Codable {
         self.valorOutrosBens = valorOutrosBens
     }
 
-
 }
-

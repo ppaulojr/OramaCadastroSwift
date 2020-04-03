@@ -7,12 +7,11 @@
 
 import Foundation
 
-
 /** Definição de endereço */
 
-public struct Endereco: Codable {
+@objc public class Endereco: NSObject, Codable { 
 
-    public enum Uf: String, Codable {
+    public enum Uf: String, Codable, CaseIterable {
         case ac = "AC"
         case al = "AL"
         case am = "AM"
@@ -66,6 +65,4 @@ public struct Endereco: Codable {
         self.complemento = complemento
     }
 
-
 }
-

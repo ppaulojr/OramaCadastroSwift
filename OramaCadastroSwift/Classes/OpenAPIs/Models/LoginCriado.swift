@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct LoginCriado: Codable {
+@objc public class LoginCriado: NSObject, Codable { 
 
     public var login: LoginObjeto
     public var token: String
@@ -19,6 +19,4 @@ public struct LoginCriado: Codable {
         self.token = token
     }
 
-
 }
-

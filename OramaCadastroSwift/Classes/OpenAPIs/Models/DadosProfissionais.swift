@@ -7,10 +7,9 @@
 
 import Foundation
 
-
 /** Dados profissionais do usuário */
 
-public struct DadosProfissionais: Codable {
+@objc public class DadosProfissionais: NSObject, Codable { 
 
     /** Profissão de acordo com a tabela de ocupação profissional */
     public var profissao: String?
@@ -22,6 +21,4 @@ public struct DadosProfissionais: Codable {
         self.empresa = empresa
     }
 
-
 }
-

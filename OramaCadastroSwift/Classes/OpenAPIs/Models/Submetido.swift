@@ -9,15 +9,18 @@ import Foundation
 
 
 
-public struct Submetido: Codable {
+@objc public class Submetido: NSObject, Codable { 
 
     /** Estado de submissão do perfil, true caso já tenha sido submetido, false caso contrário. */
     public var submetido: Bool?
+    public var submetidoNum: NSNumber? {
+        get {
+            return submetido as NSNumber?
+        }
+    }
 
     public init(submetido: Bool?) {
         self.submetido = submetido
     }
 
-
 }
-

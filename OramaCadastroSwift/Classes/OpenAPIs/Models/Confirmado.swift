@@ -9,15 +9,18 @@ import Foundation
 
 
 
-public struct Confirmado: Codable {
+@objc public class Confirmado: NSObject, Codable { 
 
     /** Estado de confirmação, true caso já tenha sido confirmado, false caso contrário. */
     public var confirmado: Bool?
+    public var confirmadoNum: NSNumber? {
+        get {
+            return confirmado as NSNumber?
+        }
+    }
 
     public init(confirmado: Bool?) {
         self.confirmado = confirmado
     }
 
-
 }
-

@@ -9,8 +9,6 @@ Method | HTTP request | Description
 [**accountDocumentoPut**](UsersAPI.md#accountdocumentoput) | **PUT** /perfil/{cpf}/documento/ | Anexa ou atualiza documento para conferencia de autenticidade do perfil.
 [**accountIdentificacaoPost**](UsersAPI.md#accountidentificacaopost) | **POST** /identificacao/ | Cria um login para usuário.
 [**accountPerfilAprovacaoGet**](UsersAPI.md#accountperfilaprovacaoget) | **GET** /perfil/{cpf}/aprovacao/ | Retorna o estado de aprovação de um perfil
-[**accountPerfilAssinaturaEletronicaGet**](UsersAPI.md#accountperfilassinaturaeletronicaget) | **GET** /perfil/{cpf}/assinatura-eletronica/ | Verifica se a assinatura eletronica já foi definida.
-[**accountPerfilAssinaturaEletronicaPost**](UsersAPI.md#accountperfilassinaturaeletronicapost) | **POST** /perfil/{cpf}/assinatura-eletronica/ | Realiza o cadastro da assinatura eletrônica do perfil.
 [**accountPerfilCelularAutenticacaoConfirmacaoGet**](UsersAPI.md#accountperfilcelularautenticacaoconfirmacaoget) | **GET** /perfil/{cpf}/celular/autenticacao/confirmacao/ | Estado atual de confirmação do celular
 [**accountPerfilCelularAutenticacaoPost**](UsersAPI.md#accountperfilcelularautenticacaopost) | **POST** /perfil/{cpf}/celular/autenticacao/ | Gera um código para iniciar o processo de validação do número do celular
 [**accountPerfilCelularConfirmacaoPost**](UsersAPI.md#accountperfilcelularconfirmacaopost) | **POST** /perfil/{cpf}/celular/autenticacao/confirmacao/ | Confirma o numero de celular, concluindo a validação
@@ -21,9 +19,6 @@ Method | HTTP request | Description
 [**accountPerfilPost**](UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 [**accountPerfilPut**](UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
 [**accountPerfilSubmetidoGet**](UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
-[**accountPerfilTermosConfirmacaoGet**](UsersAPI.md#accountperfiltermosconfirmacaoget) | **GET** /perfil/{cpf}/termos/confirmacao/ | Estado atual de confirmação do aceite de termos
-[**accountPerfilTermosConfirmacaoPost**](UsersAPI.md#accountperfiltermosconfirmacaopost) | **POST** /perfil/{cpf}/termos/confirmacao/ | Confirma o o aceite de termos
-[**accountPerfilTermosGet**](UsersAPI.md#accountperfiltermosget) | **GET** /perfil/{cpf}/termos/ | Consulta os termos requeridos para o perfil
 
 
 # **accountAutenticacaoPost**
@@ -276,108 +271,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilAssinaturaEletronicaGet**
-```swift
-    open class func accountPerfilAssinaturaEletronicaGet(cpf: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Verifica se a assinatura eletronica já foi definida.
-
-Verifica se a assinatura eletronica já foi definida.
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Verifica se a assinatura eletronica já foi definida.
-UsersAPI.accountPerfilAssinaturaEletronicaGet(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilAssinaturaEletronicaPost**
-```swift
-    open class func accountPerfilAssinaturaEletronicaPost(cpf: String, assinaturaEletronica: AssinaturaEletronica, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
-```
-
-Realiza o cadastro da assinatura eletrônica do perfil.
-
-Cadastra a assinatura eletrônica do perfil, realiza validação da assinatura eletronica. A assinatura eletrônica deve: TODO adicionar as regras de vlidação.
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-let assinaturaEletronica = AssinaturaEletronica(assinaturaEletronica: "assinaturaEletronica_example") // AssinaturaEletronica | Dados para criação da assinatura eletrônica
-
-// Realiza o cadastro da assinatura eletrônica do perfil.
-UsersAPI.accountPerfilAssinaturaEletronicaPost(cpf: cpf, assinaturaEletronica: assinaturaEletronica) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
- **assinaturaEletronica** | [**AssinaturaEletronica**](AssinaturaEletronica.md) | Dados para criação da assinatura eletrônica | 
-
-### Return type
-
-Void (empty response body)
-
-### Authorization
-
-[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -789,7 +682,7 @@ Atualiza um perfil de usuário associado a um login para o processo de criação
 import OramaCadastroSwift
 
 let cpf = "cpf_example" // String | CPF do perfil
-let perfilUsuario = PerfilUsuario(usPerson: false, politicamenteExposto: false, investidorQualificado: false, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date()), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(faixaAplicacoes: "faixaAplicacoes_example", valorAplicacoes: 123, faixaRendimentos: "faixaRendimentos_example", valorOutrosBens: 123), contaBancaria: [ContaBancaria(banco: "banco_example", tipo: "tipo_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example", contaConjunta: false, segundoParticipanteTitular: false, cpfCotitular: "cpfCotitular_example")], frontEnd: FrontEndStep(step: 123, platform: "platform_example")) // PerfilUsuario | Dados para criação ou atualização do perfil
+let perfilUsuario = PerfilUsuario(usPerson: true, politicamenteExposto: true, nacionalidade: "nacionalidade_example", ufNascimento: "ufNascimento_example", cidadeNascimento: "cidadeNascimento_example", paisNascimento: "paisNascimento_example", sexo: "sexo_example", estadoCivil: "estadoCivil_example", nomeConjuge: "nomeConjuge_example", nomeMae: "nomeMae_example", nomePai: "nomePai_example", login: LoginObjeto(nome: "nome_example", celular: "celular_example", cpf: "cpf_example", email: "email_example", dataNascimento: Date()), documento: [Documento(tipoDocumento: "tipoDocumento_example", numeroDocumento: "numeroDocumento_example", orgaoExpedidor: "orgaoExpedidor_example", ufEmissao: "ufEmissao_example", dataEmissao: Date(), dataValidade: Date(), codigoSegurancaCNH: "codigoSegurancaCNH_example")], profissao: DadosProfissionais(profissao: "profissao_example", empresa: "empresa_example"), endereco: Endereco(cep: "cep_example", logradouro: "logradouro_example", bairro: "bairro_example", uf: "uf_example", cidade: "cidade_example", numero: "numero_example", complemento: "complemento_example"), patrimonio: DadosPatrimonial(faixaAplicacoes: "faixaAplicacoes_example", valorAplicacoes: 123, faixaRendimentos: "faixaRendimentos_example", valorOutrosBens: 123), contaBancaria: [ContaBancaria(banco: "banco_example", tipo: "tipo_example", agencia: "agencia_example", conta: "conta_example", digito: "digito_example", contaConjunta: true, segundoParticipanteTitular: true, cpfCotitular: "cpfCotitular_example")], frontEnd: FrontEndStep(step: 123, platform: "platform_example")) // PerfilUsuario | Dados para criação ou atualização do perfil
 
 // Atualiza perfil para criação de conta.
 UsersAPI.accountPerfilPut(cpf: cpf, perfilUsuario: perfilUsuario) { (response, error) in
@@ -862,152 +755,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Submetido**](Submetido.md)
-
-### Authorization
-
-[JWT](../README.md#JWT)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilTermosConfirmacaoGet**
-```swift
-    open class func accountPerfilTermosConfirmacaoGet(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
-```
-
-Estado atual de confirmação do aceite de termos
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Estado atual de confirmação do aceite de termos
-UsersAPI.accountPerfilTermosConfirmacaoGet(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-[**Confirmado**](Confirmado.md)
-
-### Authorization
-
-[JWT](../README.md#JWT)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilTermosConfirmacaoPost**
-```swift
-    open class func accountPerfilTermosConfirmacaoPost(cpf: String, completion: @escaping (_ data: Confirmado?, _ error: Error?) -> Void)
-```
-
-Confirma o o aceite de termos
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Confirma o o aceite de termos
-UsersAPI.accountPerfilTermosConfirmacaoPost(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-[**Confirmado**](Confirmado.md)
-
-### Authorization
-
-[JWT](../README.md#JWT)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accountPerfilTermosGet**
-```swift
-    open class func accountPerfilTermosGet(cpf: String, completion: @escaping (_ data: [Termos]?, _ error: Error?) -> Void)
-```
-
-Consulta os termos requeridos para o perfil
-
-Consulta os termos exigidos para o perfil
-
-### Example 
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OramaCadastroSwift
-
-let cpf = "cpf_example" // String | CPF do perfil
-
-// Consulta os termos requeridos para o perfil
-UsersAPI.accountPerfilTermosGet(cpf: cpf) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cpf** | **String** | CPF do perfil | 
-
-### Return type
-
-[**[Termos]**](Termos.md)
 
 ### Authorization
 

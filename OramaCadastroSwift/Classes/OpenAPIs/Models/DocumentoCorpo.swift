@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct DocumentoCorpo: Codable {
+@objc public class DocumentoCorpo: NSObject, Codable { 
 
     /** Arquivo binário que será enviado. O formato deve ser PDF, PNG ou JPG */
     public var filename: URL
@@ -18,6 +18,4 @@ public struct DocumentoCorpo: Codable {
         self.filename = filename
     }
 
-
 }
-

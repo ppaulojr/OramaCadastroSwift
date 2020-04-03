@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct LoginSenhaObjeto: Codable {
+@objc public class LoginSenhaObjeto: NSObject, Codable { 
 
     /** Campo texto de preenchimento obrigatório para o preenchimento do nome completo do cliente. */
     public var nome: String
@@ -32,6 +32,4 @@ public struct LoginSenhaObjeto: Codable {
         self.senha = senha
     }
 
-
 }
-

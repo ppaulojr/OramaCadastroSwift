@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct UsuarioSenhaObjeto: Codable {
+@objc public class UsuarioSenhaObjeto: NSObject, Codable { 
 
     /** Identificador do usuário, CPF ou email */
     public var usuario: String
@@ -21,6 +21,4 @@ public struct UsuarioSenhaObjeto: Codable {
         self.senha = senha
     }
 
-
 }
-

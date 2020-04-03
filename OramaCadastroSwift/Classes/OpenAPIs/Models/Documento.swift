@@ -7,19 +7,18 @@
 
 import Foundation
 
-
 /** Documentação do Usuário. Deve ser enviado somente um documento na lista de documentos &#39;documento&#39;. */
 
-public struct Documento: Codable {
+@objc public class Documento: NSObject, Codable { 
 
-    public enum TipoDocumento: String, Codable {
+    public enum TipoDocumento: String, Codable, CaseIterable {
         case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
         case passaporte = "Passaporte"
         case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
         case cartIdentidadeProfissional = "Cart. Identidade Profissional"
         case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
     }
-    public enum OrgaoExpedidor: String, Codable {
+    public enum OrgaoExpedidor: String, Codable, CaseIterable {
         case ifp = "IFP"
         case detran = "DETRAN"
         case consRegDeAdministração = "Cons. Reg. de Administração"
@@ -71,6 +70,4 @@ public struct Documento: Codable {
         self.codigoSegurancaCNH = codigoSegurancaCNH
     }
 
-
 }
-
