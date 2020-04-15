@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public struct Termos: Codable {
+@objc public class Termos: NSObject, Codable { 
 
     /** Título do Termo/Declaração */
     public var title: String
@@ -21,11 +21,9 @@ public struct Termos: Codable {
         self._description = _description
     }
 
-    public enum CodingKeys: String, CodingKey { 
+    public enum CodingKeys: String, CodingKey, CaseIterable { 
         case title
         case _description = "description"
     }
 
-
 }
-

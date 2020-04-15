@@ -54,13 +54,13 @@ import Foundation
     /** Unidade da Federação onde foi emitido o documeto */
     public var ufEmissao: String
     /** Data em que o documento foi emitido no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
-    public var dataEmissao: Date?
+    public var dataEmissao: Date
     /** Data de validade do documento no formato YYYY-MM-DD (cf. RFC 3339, section 5.8) */
     public var dataValidade: Date?
-    /** Código de Segurança da Carteira Nacional de Habilitação */
+    /** Código de Segurança da Carteira Nacional de Habilitação  - Orbigatório caso &#39;tipoDocumento&#39; seja &#39;Carteira de Habilitação - CNH&#39; */
     public var codigoSegurancaCNH: String?
 
-    public init(tipoDocumento: TipoDocumento, numeroDocumento: String, orgaoExpedidor: OrgaoExpedidor, ufEmissao: String, dataEmissao: Date?, dataValidade: Date?, codigoSegurancaCNH: String?) {
+    public init(tipoDocumento: TipoDocumento, numeroDocumento: String, orgaoExpedidor: OrgaoExpedidor, ufEmissao: String, dataEmissao: Date, dataValidade: Date?, codigoSegurancaCNH: String?) {
         self.tipoDocumento = tipoDocumento
         self.numeroDocumento = numeroDocumento
         self.orgaoExpedidor = orgaoExpedidor

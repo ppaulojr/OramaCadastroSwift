@@ -7,7 +7,7 @@
 import Foundation
 
 open class OramaCadastroSwiftAPI {
-    public static var basePath = "https://cadastro.orama.com.br/api/contas/v1.0"
+    public static var basePath = "https://cadastro.orama.com.br/api/contas/v3.0"
     public static var credential: URLCredential?
     public static var customHeaders: [String:String] = [:]
     public static var requestBuilderFactory: RequestBuilderFactory = URLSessionRequestBuilderFactory()

@@ -1,6 +1,6 @@
 # DevelopersAPI
 
-All URIs are relative to *https://cadastro.orama.com.br/api/contas/v1.0*
+All URIs are relative to *https://cadastro.orama.com.br/api/contas/v3.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

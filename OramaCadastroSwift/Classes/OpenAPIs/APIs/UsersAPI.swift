@@ -260,6 +260,100 @@ extension OramaCadastroSwiftAPI {
     }
 
     /**
+     Verifica se a assinatura eletronica já foi definida.
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilAssinaturaEletronicaGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilAssinaturaEletronicaGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Verifica se a assinatura eletronica já foi definida.
+     - GET /perfil/{cpf}/assinatura-eletronica/
+     - Verifica se a assinatura eletronica já foi definida.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Void> 
+     */
+    open class func accountPerfilAssinaturaEletronicaGetWithRequestBuilder(cpf: String) -> RequestBuilder<Void> {
+        var path = "/perfil/{cpf}/assinatura-eletronica/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Realiza o cadastro da assinatura eletrônica do perfil.
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter assinaturaEletronica: (body) Dados para criação da assinatura eletrônica 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilAssinaturaEletronicaPost(cpf: String, assinaturaEletronica: AssinaturaEletronica, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        accountPerfilAssinaturaEletronicaPostWithRequestBuilder(cpf: cpf, assinaturaEletronica: assinaturaEletronica).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Realiza o cadastro da assinatura eletrônica do perfil.
+     - POST /perfil/{cpf}/assinatura-eletronica/
+     - Cadastra a assinatura eletrônica do perfil, realiza validação da assinatura eletronica.  A assinatura deve respeitar as seguintes condições: - Conter de 6 a 15 dígitos - Conter apenas letras e números - Não deve conter 6 ou mais dígitos sequênciais, ex.: 'abcdef', '123456' - Se a assinatura contém entre 6 e 7 dígitos não deve repetir 3 dígitos seguidos, ex.: '111', 'aaa' - Se a assinatura contém entre 8 e 12 dígitos não deve repetir 4 dígitos seguidos, ex.: '1111', 'aaaa' - Se a assinatura contém entre 13 e 14 dígitos não deve repetir 5 dígitos seguidos, ex.: '11111', 'aaaaa' - Se a assinatura contém 15 dígitos não deve repetir 6 dígitos seguidos, ex.: '111111', 'aaaaaa' - A assinatura não deve conter nenhuma das palavras a seguir:      'select', 'update', 'insert', 'delete', 'drop', 'truncate', 'waitfor', 'delay', 'where', 'from', 'having', 'script', 'applet', 'sha1'
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - parameter assinaturaEletronica: (body) Dados para criação da assinatura eletrônica 
+     - returns: RequestBuilder<Void> 
+     */
+    open class func accountPerfilAssinaturaEletronicaPostWithRequestBuilder(cpf: String, assinaturaEletronica: AssinaturaEletronica) -> RequestBuilder<Void> {
+        var path = "/perfil/{cpf}/assinatura-eletronica/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: assinaturaEletronica)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Void>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Estado atual de confirmação do celular
      
      - parameter cpf: (path) CPF do perfil 
@@ -589,7 +683,7 @@ extension OramaCadastroSwiftAPI {
     /**
      Submete o perfil de usuário associado a um login para ser criado como cliente.
      - POST /perfil/{cpf}/
-     - Submete o perfil de usuário associado a um login para ser criado como cliente. É necessário validar ambos o número do celular e o e-mail para que a submissão seja aceita, veja os endpoints /perfil/{cpf}/celular/autenticacao/ e /perfil/{cpf}/email/autenticacao/. Após submissão deste POST, o perfil não poderá mais ser alterado. Para alterar ou inserir informações no perfil antes de submeter o perfil o método PUT deve ser utilizado.
+     - Submete o perfil de usuário associado a um login para ser criado como cliente. A assinatura eletrônica é obrigatória para a submissão do usuário, ver endpoint /perfil/{cpf}/assinatura-eletronica/. É necessário validar ambos o número do celular e o e-mail para que a submissão seja aceita, veja os endpoints /perfil/{cpf}/celular/autenticacao/ e /perfil/{cpf}/email/autenticacao/. Após submissão deste POST, o perfil não poderá mais ser alterado. Para alterar ou inserir informações no perfil antes de submeter o perfil o método PUT deve ser utilizado.
      - BASIC:
        - type: http
        - name: JWT
@@ -694,6 +788,133 @@ extension OramaCadastroSwiftAPI {
         let url = URLComponents(string: URLString)
 
         let requestBuilder: RequestBuilder<Submetido>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Estado atual de confirmação do aceite de termos
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilTermosConfirmacaoGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilTermosConfirmacaoGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Estado atual de confirmação do aceite de termos
+     - GET /perfil/{cpf}/termos/confirmacao/
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Confirmado> 
+     */
+    open class func accountPerfilTermosConfirmacaoGetWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
+        var path = "/perfil/{cpf}/termos/confirmacao/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Confirma o aceite de termos
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilTermosConfirmacaoPost(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: Confirmado?,_ error: Error?) -> Void)) {
+        accountPerfilTermosConfirmacaoPostWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Confirma o aceite de termos
+     - POST /perfil/{cpf}/termos/confirmacao/
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<Confirmado> 
+     */
+    open class func accountPerfilTermosConfirmacaoPostWithRequestBuilder(cpf: String) -> RequestBuilder<Confirmado> {
+        var path = "/perfil/{cpf}/termos/confirmacao/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Confirmado>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Consulta os termos requeridos para o perfil
+     
+     - parameter cpf: (path) CPF do perfil 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountPerfilTermosGet(cpf: String, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: [Termos]?,_ error: Error?) -> Void)) {
+        accountPerfilTermosGetWithRequestBuilder(cpf: cpf).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Consulta os termos requeridos para o perfil
+     - GET /perfil/{cpf}/termos/
+     - Consulta os termos exigidos para o perfil
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter cpf: (path) CPF do perfil 
+     - returns: RequestBuilder<[Termos]> 
+     */
+    open class func accountPerfilTermosGetWithRequestBuilder(cpf: String) -> RequestBuilder<[Termos]> {
+        var path = "/perfil/{cpf}/termos/"
+        let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
+        let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{cpf}", with: cpfPostEscape, options: .literal, range: nil)
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<[Termos]>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
