@@ -11,7 +11,7 @@ import Foundation
 
 @objc public class Endereco: NSObject, Codable { 
 
-    public enum Uf: String, Codable, CaseIterable {
+    public enum Uf: String, Codable {
         case ac = "AC"
         case al = "AL"
         case am = "AM"

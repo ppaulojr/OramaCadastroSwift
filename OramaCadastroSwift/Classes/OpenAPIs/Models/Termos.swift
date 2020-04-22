@@ -21,7 +21,7 @@ import Foundation
         self._description = _description
     }
 
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey { 
         case title
         case _description = "description"
     }

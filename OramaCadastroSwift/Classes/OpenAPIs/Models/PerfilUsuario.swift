@@ -11,12 +11,12 @@ import Foundation
 
 @objc public class PerfilUsuario: NSObject, Codable { 
 
-    public enum Nacionalidade: String, Codable, CaseIterable {
+    public enum Nacionalidade: String, Codable {
         case brasileiroNato = "Brasileiro Nato"
         case estrangeiro = "Estrangeiro"
         case brasileiroNaturalizado = "Brasileiro Naturalizado"
     }
-    public enum UfNascimento: String, Codable, CaseIterable {
+    public enum UfNascimento: String, Codable {
         case ac = "AC"
         case al = "AL"
         case am = "AM"
@@ -45,11 +45,11 @@ import Foundation
         case sp = "SP"
         case to = "TO"
     }
-    public enum Sexo: String, Codable, CaseIterable {
+    public enum Sexo: String, Codable {
         case feminino = "Feminino"
         case masculino = "Masculino"
     }
-    public enum EstadoCivil: String, Codable, CaseIterable {
+    public enum EstadoCivil: String, Codable {
         case casadoA = "Casado(a)"
         case solteiroA = "Solteiro(a)"
         case divorciadoA = "Divorciado(a)"
@@ -59,10 +59,25 @@ import Foundation
     }
     /** define se o usuário pode ou não ser enquadrado como US person de acordo com a definição da CVM */
     public var usPerson: Bool = false
+    public var usPersonNum: NSNumber? {
+        get {
+            return usPerson as NSNumber?
+        }
+    }
     /** define se o usuário pode ou não ser enquadrado como pessoa politicamente exposta de acordo com a definição da Deliberação Coremec nº 2, de 1º de dezembro de 2006 */
     public var politicamenteExposto: Bool = false
+    public var politicamenteExpostoNum: NSNumber? {
+        get {
+            return politicamenteExposto as NSNumber?
+        }
+    }
     /** Define se o usuário é investidor qualifiquado. Investidor Qualificado - PF ou PJ que possuam investimentos financeiros em valor superior a 1 Milhão, Investidor aprovado em exame de qualificação técnica, e atestem por escrito sua condição de investidor qualificado. Investidores Profissionais, etc. */
     public var investidorQualificado: Bool = false
+    public var investidorQualificadoNum: NSNumber? {
+        get {
+            return investidorQualificado as NSNumber?
+        }
+    }
     /** Definição de Nacionalidade de acordo com o Art. 12 da CF */
     public var nacionalidade: Nacionalidade
     /** Unidade da Federação em que a pessoa nasceu  - É obrigatório caso &#39;nacinalidade&#39; seja &#39;Brasileiro nato&#39; */

@@ -11,7 +11,7 @@ import Foundation
 
 @objc public class DadosPatrimonial: NSObject, Codable { 
 
-    public enum FaixaAplicacoes: String, Codable, CaseIterable {
+    public enum FaixaAplicacoes: String, Codable {
         case _0 = "0"
         case _1 = "1"
         case _2 = "2"
@@ -20,7 +20,7 @@ import Foundation
         case _5 = "5"
         case _6 = "6"
     }
-    public enum FaixaRendimentos: String, Codable, CaseIterable {
+    public enum FaixaRendimentos: String, Codable {
         case _0 = "0"
         case _1 = "1"
         case _2 = "2"
