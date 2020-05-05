@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **nomeConjuge** | **String** | Nome do conjuge ou companheiro, necessário em casos que o estado civil seja &#39;Casado(a)&#39; ou &#39;União estável&#39; | [optional] 
 **nomeMae** | **String** | Nome da mãe do usuário | 
 **nomePai** | **String** | Nome do pai do usuário.   - É obrigatório caso o usuário não possua pai desconhecido. | [optional] 
-**paiDesconhecido** | **Bool** | Se o usuário não possui Nome do Pai nos documentos. | [optional] [default to false]
-**login** | [**LoginObjeto**](LoginObjeto.md) |  | [optional] 
+**paiDesconhecido** | **Bool** | Se o usuário não possui Nome do Pai nos documentos. | [default to false]
+**login** | [**LoginObjeto**](LoginObjeto.md) |  | 
 **documento** | [Documento] |  | 
 **profissao** | [**DadosProfissionais**](DadosProfissionais.md) |  | 
 **endereco** | [**Endereco**](Endereco.md) |  | 

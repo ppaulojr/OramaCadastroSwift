@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**accountPerfilEmailAutenticacaoPost**](UsersAPI.md#accountperfilemailautenticacaopost) | **POST** /perfil/{cpf}/email/autenticacao/ | Gera um código para iniciar o processo de validação do email
 [**accountPerfilEmailConfirmacaoPost**](UsersAPI.md#accountperfilemailconfirmacaopost) | **POST** /perfil/{cpf}/email/autenticacao/confirmacao/ | Confirma o email, concluindo a validação
 [**accountPerfilGet**](UsersAPI.md#accountperfilget) | **GET** /perfil/{cpf}/ | Retorna o perfil de um usuário que ainda não foi transformado em cliente.
+[**accountPerfilPendenciaGet**](UsersAPI.md#accountperfilpendenciaget) | **GET** /perfil/{cpf}/pendencia/ | Retorna lista de pendências do perfil caso existam
+[**accountPerfilPendenciaSolicitaranalisePost**](UsersAPI.md#accountperfilpendenciasolicitaranalisepost) | **POST** /perfil/{cpf}/pendencia/solicitar-analise/ | Solicita a análise das pendências. Este endpoint deve ser utilizado após o upload dos documentos relacionados as pendências.
 [**accountPerfilPost**](UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 [**accountPerfilPut**](UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
 [**accountPerfilSubmetidoGet**](UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
@@ -716,6 +718,102 @@ Name | Type | Description  | Notes
 ### Authorization
 
 [JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountPerfilPendenciaGet**
+```swift
+    open class func accountPerfilPendenciaGet(cpf: String, completion: @escaping (_ data: [Pendencia]?, _ error: Error?) -> Void)
+```
+
+Retorna lista de pendências do perfil caso existam
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+
+// Retorna lista de pendências do perfil caso existam
+UsersAPI.accountPerfilPendenciaGet(cpf: cpf) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+
+### Return type
+
+[**[Pendencia]**](Pendencia.md)
+
+### Authorization
+
+[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountPerfilPendenciaSolicitaranalisePost**
+```swift
+    open class func accountPerfilPendenciaSolicitaranalisePost(cpf: String, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+```
+
+Solicita a análise das pendências. Este endpoint deve ser utilizado após o upload dos documentos relacionados as pendências.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let cpf = "cpf_example" // String | CPF do perfil
+
+// Solicita a análise das pendências. Este endpoint deve ser utilizado após o upload dos documentos relacionados as pendências.
+UsersAPI.accountPerfilPendenciaSolicitaranalisePost(cpf: cpf) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cpf** | **String** | CPF do perfil | 
+
+### Return type
+
+Void (empty response body)
+
+### Authorization
+
+[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
 
 ### HTTP request headers
 

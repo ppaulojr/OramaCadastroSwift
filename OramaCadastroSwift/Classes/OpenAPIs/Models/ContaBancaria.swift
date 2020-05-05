@@ -39,7 +39,7 @@ import Foundation
             return segundoParticipanteTitular as NSNumber?
         }
     }
-    /** CPF do co-titular caso seja conta conjunta. CPF deve ser válido. O CPF tem que ter os 11 dígitos com a máscara incluindo os pontos e hífen.  - Orbigatório caso a conta bancária seja conta conjunta */
+    /** CPF do co-titular caso seja conta conjunta. CPF deve ser válido. O CPF tem que ter os 11 dígitos com a máscara incluindo os pontos e hífen.  - Obrigatório caso a conta bancária seja conta conjunta */
     public var cpfCotitular: String?
 
     public init(banco: String, tipo: Tipo, agencia: String, conta: String, digito: String, contaConjunta: Bool, segundoParticipanteTitular: Bool, cpfCotitular: String?) {
