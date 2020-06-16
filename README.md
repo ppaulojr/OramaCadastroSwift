@@ -40,8 +40,6 @@ Class | Method | HTTP request | Description
 *UsersAPI* | [**accountPerfilEmailAutenticacaoPost**](docs/UsersAPI.md#accountperfilemailautenticacaopost) | **POST** /perfil/{cpf}/email/autenticacao/ | Gera um código para iniciar o processo de validação do email
 *UsersAPI* | [**accountPerfilEmailConfirmacaoPost**](docs/UsersAPI.md#accountperfilemailconfirmacaopost) | **POST** /perfil/{cpf}/email/autenticacao/confirmacao/ | Confirma o email, concluindo a validação
 *UsersAPI* | [**accountPerfilGet**](docs/UsersAPI.md#accountperfilget) | **GET** /perfil/{cpf}/ | Retorna o perfil de um usuário que ainda não foi transformado em cliente.
-*UsersAPI* | [**accountPerfilPendenciaGet**](docs/UsersAPI.md#accountperfilpendenciaget) | **GET** /perfil/{cpf}/pendencia/ | Retorna lista de pendências do perfil caso existam
-*UsersAPI* | [**accountPerfilPendenciaSolicitaranalisePost**](docs/UsersAPI.md#accountperfilpendenciasolicitaranalisepost) | **POST** /perfil/{cpf}/pendencia/solicitar-analise/ | Solicita a análise das pendências. Este endpoint deve ser utilizado após o upload dos documentos relacionados as pendências.
 *UsersAPI* | [**accountPerfilPost**](docs/UsersAPI.md#accountperfilpost) | **POST** /perfil/{cpf}/ | Submete o perfil de usuário associado a um login para ser criado como cliente.
 *UsersAPI* | [**accountPerfilPut**](docs/UsersAPI.md#accountperfilput) | **PUT** /perfil/{cpf}/ | Atualiza perfil para criação de conta.
 *UsersAPI* | [**accountPerfilSubmetidoGet**](docs/UsersAPI.md#accountperfilsubmetidoget) | **GET** /perfil/{cpf}/submetido/ | Retorna o estado de submissão de um perfil
@@ -69,7 +67,6 @@ Class | Method | HTTP request | Description
  - [LoginCriado](docs/LoginCriado.md)
  - [LoginObjeto](docs/LoginObjeto.md)
  - [LoginSenhaObjeto](docs/LoginSenhaObjeto.md)
- - [Pendencia](docs/Pendencia.md)
  - [PerfilUsuario](docs/PerfilUsuario.md)
  - [Submetido](docs/Submetido.md)
  - [Termos](docs/Termos.md)
