@@ -83,6 +83,43 @@ extension OramaCadastroSwiftAPI {
     }
 
     /**
+     Solicitar envio do código para redefinição de senha via SMS
+     
+     - parameter loginRedefinicaoSenha: (body) Dados para criação do login (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountAutenticacaoRedefinirSenhaEnviarSmsPost(loginRedefinicaoSenha: LoginRedefinicaoSenha? = nil, completion: @escaping ((_ data: RetornoSolicitacaoRedefinicaoSenha?,_ error: Error?) -> Void)) {
+        accountAutenticacaoRedefinirSenhaEnviarSmsPostWithRequestBuilder(loginRedefinicaoSenha: loginRedefinicaoSenha).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Solicitar envio do código para redefinição de senha via SMS
+     - POST /autenticacao/redefinir-senha/enviar-sms
+     - Solicitar código de redefinição de senha  - Após confirmar a data de nascimento pode ser solicitado código via SMS para redefinir a senha  - O código SMS expira após 15 minutos
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - BASIC:
+       - type: http
+       - name: JWT
+     - parameter loginRedefinicaoSenha: (body) Dados para criação do login (optional)
+     - returns: RequestBuilder<RetornoSolicitacaoRedefinicaoSenha> 
+     */
+    open class func accountAutenticacaoRedefinirSenhaEnviarSmsPostWithRequestBuilder(loginRedefinicaoSenha: LoginRedefinicaoSenha? = nil) -> RequestBuilder<RetornoSolicitacaoRedefinicaoSenha> {
+        let path = "/autenticacao/redefinir-senha/enviar-sms"
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: loginRedefinicaoSenha)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<RetornoSolicitacaoRedefinicaoSenha>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Salvar nova senha
      
      - parameter envioNovaSenha: (body) Dados para criação do login (optional)

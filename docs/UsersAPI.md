@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accountAutenticacaoPost**](UsersAPI.md#accountautenticacaopost) | **POST** /autenticacao/ | Autentica um usuário que ainda não é cliente.
 [**accountAutenticacaoRedefinirSenhaConfirmarSmsPost**](UsersAPI.md#accountautenticacaoredefinirsenhaconfirmarsmspost) | **POST** /autenticacao/redefinir-senha/confirmar-sms | Confirmação do código para redefinição de senha
+[**accountAutenticacaoRedefinirSenhaEnviarSmsPost**](UsersAPI.md#accountautenticacaoredefinirsenhaenviarsmspost) | **POST** /autenticacao/redefinir-senha/enviar-sms | Solicitar envio do código para redefinição de senha via SMS
 [**accountAutenticacaoRedefinirSenhaNovaSenhaPost**](UsersAPI.md#accountautenticacaoredefinirsenhanovasenhapost) | **POST** /autenticacao/redefinir-senha/nova-senha | Salvar nova senha
 [**accountAutenticacaoRedefinirSenhaPost**](UsersAPI.md#accountautenticacaoredefinirsenhapost) | **POST** /autenticacao/redefinir-senha | Solicitar início da redefinição de senha
 [**accountDocumentoConfirmacaoGet**](UsersAPI.md#accountdocumentoconfirmacaoget) | **GET** /perfil/{cpf}/documento/confirmacao/ | Consulta o status de confirmação do documento que foi submetido
@@ -119,6 +120,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ConfirmacaoCodigoSMS**](ConfirmacaoCodigoSMS.md)
+
+### Authorization
+
+[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountAutenticacaoRedefinirSenhaEnviarSmsPost**
+```swift
+    open class func accountAutenticacaoRedefinirSenhaEnviarSmsPost(loginRedefinicaoSenha: LoginRedefinicaoSenha? = nil, completion: @escaping (_ data: RetornoSolicitacaoRedefinicaoSenha?, _ error: Error?) -> Void)
+```
+
+Solicitar envio do código para redefinição de senha via SMS
+
+Solicitar código de redefinição de senha  - Após confirmar a data de nascimento pode ser solicitado código via SMS para redefinir a senha  - O código SMS expira após 15 minutos
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let loginRedefinicaoSenha = LoginRedefinicaoSenha(cpf: "cpf_example", email: "email_example") // LoginRedefinicaoSenha | Dados para criação do login (optional)
+
+// Solicitar envio do código para redefinição de senha via SMS
+UsersAPI.accountAutenticacaoRedefinirSenhaEnviarSmsPost(loginRedefinicaoSenha: loginRedefinicaoSenha) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **loginRedefinicaoSenha** | [**LoginRedefinicaoSenha**](LoginRedefinicaoSenha.md) | Dados para criação do login | [optional] 
+
+### Return type
+
+[**RetornoSolicitacaoRedefinicaoSenha**](RetornoSolicitacaoRedefinicaoSenha.md)
 
 ### Authorization
 
