@@ -882,7 +882,7 @@ Name | Type | Description  | Notes
 
 # **accountPerfilGet**
 ```swift
-    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping (_ data: RetornoPerfilUsuario?, _ error: Error?) -> Void)
+    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping (_ data: PerfilUsuario?, _ error: Error?) -> Void)
 ```
 
 Retorna o perfil de um usuário que ainda não foi transformado em cliente.
@@ -917,7 +917,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetornoPerfilUsuario**](RetornoPerfilUsuario.md)
+[**PerfilUsuario**](PerfilUsuario.md)
 
 ### Authorization
 

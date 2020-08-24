@@ -716,7 +716,7 @@ extension OramaCadastroSwiftAPI {
      - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping ((_ data: RetornoPerfilUsuario?,_ error: Error?) -> Void)) {
+    open class func accountPerfilGet(cpf: String, campos: String? = nil, completion: @escaping ((_ data: PerfilUsuario?,_ error: Error?) -> Void)) {
         accountPerfilGetWithRequestBuilder(cpf: cpf, campos: campos).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -730,9 +730,9 @@ extension OramaCadastroSwiftAPI {
        - name: JWT
      - parameter cpf: (path) CPF do perfil 
      - parameter campos: (query) Lista de campos para ser inclusivamente filtrados (optional)
-     - returns: RequestBuilder<RetornoPerfilUsuario> 
+     - returns: RequestBuilder<PerfilUsuario> 
      */
-    open class func accountPerfilGetWithRequestBuilder(cpf: String, campos: String? = nil) -> RequestBuilder<RetornoPerfilUsuario> {
+    open class func accountPerfilGetWithRequestBuilder(cpf: String, campos: String? = nil) -> RequestBuilder<PerfilUsuario> {
         var path = "/perfil/{cpf}/"
         let cpfPreEscape = "\(APIHelper.mapValueToPathItem(cpf))"
         let cpfPostEscape = cpfPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -745,7 +745,7 @@ extension OramaCadastroSwiftAPI {
             "campos": campos?.encodeToJSON()
         ])
 
-        let requestBuilder: RequestBuilder<RetornoPerfilUsuario>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<PerfilUsuario>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
