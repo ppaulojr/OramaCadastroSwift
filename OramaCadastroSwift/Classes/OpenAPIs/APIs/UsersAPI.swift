@@ -17,6 +17,74 @@ extension OramaCadastroSwiftAPI {
      - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
      - parameter completion: completion handler to receive the data and the error objects
      */
+    open class func accountAutenticacaoAndroidPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping ((_ data: AutenticacaoObjeto?,_ error: Error?) -> Void)) {
+        accountAutenticacaoAndroidPostWithRequestBuilder(usuarioSenhaObjeto: usuarioSenhaObjeto).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Autentica um usuário que ainda não é cliente.
+     - POST /autenticacao/android/
+     - Autentica um usuário que ainda não é cliente, caso o usuário não existe, ou a combinação de usuário e senha ou ainda o usuário já seja cliente retorna um erro.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - returns: RequestBuilder<AutenticacaoObjeto> 
+     */
+    open class func accountAutenticacaoAndroidPostWithRequestBuilder(usuarioSenhaObjeto: UsuarioSenhaObjeto) -> RequestBuilder<AutenticacaoObjeto> {
+        let path = "/autenticacao/android/"
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: usuarioSenhaObjeto)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<AutenticacaoObjeto>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Autentica um usuário que ainda não é cliente.
+     
+     - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountAutenticacaoIosPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping ((_ data: AutenticacaoObjeto?,_ error: Error?) -> Void)) {
+        accountAutenticacaoIosPostWithRequestBuilder(usuarioSenhaObjeto: usuarioSenhaObjeto).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Autentica um usuário que ainda não é cliente.
+     - POST /autenticacao/ios/
+     - Autentica um usuário que ainda não é cliente, caso o usuário não existe, ou a combinação de usuário e senha ou ainda o usuário já seja cliente retorna um erro.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - returns: RequestBuilder<AutenticacaoObjeto> 
+     */
+    open class func accountAutenticacaoIosPostWithRequestBuilder(usuarioSenhaObjeto: UsuarioSenhaObjeto) -> RequestBuilder<AutenticacaoObjeto> {
+        let path = "/autenticacao/ios/"
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: usuarioSenhaObjeto)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<AutenticacaoObjeto>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Autentica um usuário que ainda não é cliente.
+     
+     - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
     open class func accountAutenticacaoPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping ((_ data: AutenticacaoObjeto?,_ error: Error?) -> Void)) {
         accountAutenticacaoPostWithRequestBuilder(usuarioSenhaObjeto: usuarioSenhaObjeto).execute { (response, error) -> Void in
             completion(response?.body, error)
@@ -64,9 +132,6 @@ extension OramaCadastroSwiftAPI {
      - API Key:
        - type: apiKey X-Api-Key 
        - name: Api-Key
-     - BASIC:
-       - type: http
-       - name: JWT
      - parameter confirmacaoCodigoSMS: (body)  (optional)
      - returns: RequestBuilder<ConfirmacaoCodigoSMS> 
      */
@@ -101,9 +166,6 @@ extension OramaCadastroSwiftAPI {
      - API Key:
        - type: apiKey X-Api-Key 
        - name: Api-Key
-     - BASIC:
-       - type: http
-       - name: JWT
      - parameter loginRedefinicaoSenha: (body) Dados para criação do login (optional)
      - returns: RequestBuilder<RetornoSolicitacaoRedefinicaoSenha> 
      */
@@ -138,9 +200,6 @@ extension OramaCadastroSwiftAPI {
      - API Key:
        - type: apiKey X-Api-Key 
        - name: Api-Key
-     - BASIC:
-       - type: http
-       - name: JWT
      - parameter envioNovaSenha: (body) Dados para criação do login (optional)
      - returns: RequestBuilder<RetornoNovaSenha> 
      */
@@ -175,9 +234,6 @@ extension OramaCadastroSwiftAPI {
      - API Key:
        - type: apiKey X-Api-Key 
        - name: Api-Key
-     - BASIC:
-       - type: http
-       - name: JWT
      - parameter solicitacaoRedefinicaoSenha: (body) Dados para criação do login (optional)
      - returns: RequestBuilder<RetornoSolicitacaoRedefinicaoSenha> 
      */
@@ -189,6 +245,40 @@ extension OramaCadastroSwiftAPI {
         let url = URLComponents(string: URLString)
 
         let requestBuilder: RequestBuilder<RetornoSolicitacaoRedefinicaoSenha>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Autentica um usuário que ainda não é cliente.
+     
+     - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func accountAutenticacaoWebPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping ((_ data: AutenticacaoObjeto?,_ error: Error?) -> Void)) {
+        accountAutenticacaoWebPostWithRequestBuilder(usuarioSenhaObjeto: usuarioSenhaObjeto).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+    /**
+     Autentica um usuário que ainda não é cliente.
+     - POST /autenticacao/web/
+     - Autentica um usuário que ainda não é cliente, caso o usuário não existe, ou a combinação de usuário e senha ou ainda o usuário já seja cliente retorna um erro.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
+     - parameter usuarioSenhaObjeto: (body) Dados para autenticação do usuário 
+     - returns: RequestBuilder<AutenticacaoObjeto> 
+     */
+    open class func accountAutenticacaoWebPostWithRequestBuilder(usuarioSenhaObjeto: UsuarioSenhaObjeto) -> RequestBuilder<AutenticacaoObjeto> {
+        let path = "/autenticacao/web/"
+        let URLString = OramaCadastroSwiftAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: usuarioSenhaObjeto)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<AutenticacaoObjeto>.Type = OramaCadastroSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -334,6 +424,9 @@ extension OramaCadastroSwiftAPI {
      Cria um login para usuário.
      - POST /identificacao/
      - Cria um novo login que será usado para acesso ao sistema.
+     - API Key:
+       - type: apiKey X-Api-Key 
+       - name: Api-Key
      - parameter loginSenhaObjeto: (body) Dados para criação do login 
      - returns: RequestBuilder<LoginCriado> 
      */

@@ -4,11 +4,14 @@ All URIs are relative to *https://cadastro.orama.com.br/api/contas/v3.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**accountAutenticacaoAndroidPost**](UsersAPI.md#accountautenticacaoandroidpost) | **POST** /autenticacao/android/ | Autentica um usuário que ainda não é cliente.
+[**accountAutenticacaoIosPost**](UsersAPI.md#accountautenticacaoiospost) | **POST** /autenticacao/ios/ | Autentica um usuário que ainda não é cliente.
 [**accountAutenticacaoPost**](UsersAPI.md#accountautenticacaopost) | **POST** /autenticacao/ | Autentica um usuário que ainda não é cliente.
 [**accountAutenticacaoRedefinirSenhaConfirmarSmsPost**](UsersAPI.md#accountautenticacaoredefinirsenhaconfirmarsmspost) | **POST** /autenticacao/redefinir-senha/confirmar-sms | Confirmação do código para redefinição de senha
 [**accountAutenticacaoRedefinirSenhaEnviarSmsPost**](UsersAPI.md#accountautenticacaoredefinirsenhaenviarsmspost) | **POST** /autenticacao/redefinir-senha/enviar-sms | Solicitar envio do código para redefinição de senha via SMS
 [**accountAutenticacaoRedefinirSenhaNovaSenhaPost**](UsersAPI.md#accountautenticacaoredefinirsenhanovasenhapost) | **POST** /autenticacao/redefinir-senha/nova-senha | Salvar nova senha
 [**accountAutenticacaoRedefinirSenhaPost**](UsersAPI.md#accountautenticacaoredefinirsenhapost) | **POST** /autenticacao/redefinir-senha | Solicitar início da redefinição de senha
+[**accountAutenticacaoWebPost**](UsersAPI.md#accountautenticacaowebpost) | **POST** /autenticacao/web/ | Autentica um usuário que ainda não é cliente.
 [**accountDocumentoConfirmacaoGet**](UsersAPI.md#accountdocumentoconfirmacaoget) | **GET** /perfil/{cpf}/documento/confirmacao/ | Consulta o status de confirmação do documento que foi submetido
 [**accountDocumentoPut**](UsersAPI.md#accountdocumentoput) | **PUT** /perfil/{cpf}/documento/ | Anexa ou atualiza documento para conferencia de autenticidade do perfil.
 [**accountIdentificacaoPost**](UsersAPI.md#accountidentificacaopost) | **POST** /identificacao/ | Cria um login para usuário.
@@ -31,6 +34,106 @@ Method | HTTP request | Description
 [**accountPerfilTermosConfirmacaoPost**](UsersAPI.md#accountperfiltermosconfirmacaopost) | **POST** /perfil/{cpf}/termos/confirmacao/ | Confirma o aceite de termos
 [**accountPerfilTermosGet**](UsersAPI.md#accountperfiltermosget) | **GET** /perfil/{cpf}/termos/ | Consulta os termos requeridos para o perfil
 
+
+# **accountAutenticacaoAndroidPost**
+```swift
+    open class func accountAutenticacaoAndroidPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping (_ data: AutenticacaoObjeto?, _ error: Error?) -> Void)
+```
+
+Autentica um usuário que ainda não é cliente.
+
+Autentica um usuário que ainda não é cliente, caso o usuário não existe, ou a combinação de usuário e senha ou ainda o usuário já seja cliente retorna um erro.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let usuarioSenhaObjeto = UsuarioSenhaObjeto(usuario: "usuario_example", senha: "senha_example") // UsuarioSenhaObjeto | Dados para autenticação do usuário
+
+// Autentica um usuário que ainda não é cliente.
+UsersAPI.accountAutenticacaoAndroidPost(usuarioSenhaObjeto: usuarioSenhaObjeto) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **usuarioSenhaObjeto** | [**UsuarioSenhaObjeto**](UsuarioSenhaObjeto.md) | Dados para autenticação do usuário | 
+
+### Return type
+
+[**AutenticacaoObjeto**](AutenticacaoObjeto.md)
+
+### Authorization
+
+[Api-Key](../README.md#Api-Key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountAutenticacaoIosPost**
+```swift
+    open class func accountAutenticacaoIosPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping (_ data: AutenticacaoObjeto?, _ error: Error?) -> Void)
+```
+
+Autentica um usuário que ainda não é cliente.
+
+Autentica um usuário que ainda não é cliente, caso o usuário não existe, ou a combinação de usuário e senha ou ainda o usuário já seja cliente retorna um erro.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let usuarioSenhaObjeto = UsuarioSenhaObjeto(usuario: "usuario_example", senha: "senha_example") // UsuarioSenhaObjeto | Dados para autenticação do usuário
+
+// Autentica um usuário que ainda não é cliente.
+UsersAPI.accountAutenticacaoIosPost(usuarioSenhaObjeto: usuarioSenhaObjeto) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **usuarioSenhaObjeto** | [**UsuarioSenhaObjeto**](UsuarioSenhaObjeto.md) | Dados para autenticação do usuário | 
+
+### Return type
+
+[**AutenticacaoObjeto**](AutenticacaoObjeto.md)
+
+### Authorization
+
+[Api-Key](../README.md#Api-Key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **accountAutenticacaoPost**
 ```swift
@@ -123,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
+[Api-Key](../README.md#Api-Key)
 
 ### HTTP request headers
 
@@ -173,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
+[Api-Key](../README.md#Api-Key)
 
 ### HTTP request headers
 
@@ -223,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
+[Api-Key](../README.md#Api-Key)
 
 ### HTTP request headers
 
@@ -273,7 +376,57 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Api-Key](../README.md#Api-Key), [JWT](../README.md#JWT)
+[Api-Key](../README.md#Api-Key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **accountAutenticacaoWebPost**
+```swift
+    open class func accountAutenticacaoWebPost(usuarioSenhaObjeto: UsuarioSenhaObjeto, completion: @escaping (_ data: AutenticacaoObjeto?, _ error: Error?) -> Void)
+```
+
+Autentica um usuário que ainda não é cliente.
+
+Autentica um usuário que ainda não é cliente, caso o usuário não existe, ou a combinação de usuário e senha ou ainda o usuário já seja cliente retorna um erro.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import OramaCadastroSwift
+
+let usuarioSenhaObjeto = UsuarioSenhaObjeto(usuario: "usuario_example", senha: "senha_example") // UsuarioSenhaObjeto | Dados para autenticação do usuário
+
+// Autentica um usuário que ainda não é cliente.
+UsersAPI.accountAutenticacaoWebPost(usuarioSenhaObjeto: usuarioSenhaObjeto) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **usuarioSenhaObjeto** | [**UsuarioSenhaObjeto**](UsuarioSenhaObjeto.md) | Dados para autenticação do usuário | 
+
+### Return type
+
+[**AutenticacaoObjeto**](AutenticacaoObjeto.md)
+
+### Authorization
+
+[Api-Key](../README.md#Api-Key)
 
 ### HTTP request headers
 
@@ -429,7 +582,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Api-Key](../README.md#Api-Key)
 
 ### HTTP request headers
 

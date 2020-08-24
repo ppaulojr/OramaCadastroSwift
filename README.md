@@ -26,11 +26,14 @@ All URIs are relative to *https://cadastro.orama.com.br/api/contas/v3.0*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DevelopersAPI* | [**accountIdentificacaoParceiroPost**](docs/DevelopersAPI.md#accountidentificacaoparceiropost) | **POST** /identificacao-parceiro/ | Cria um login para usuário.
+*UsersAPI* | [**accountAutenticacaoAndroidPost**](docs/UsersAPI.md#accountautenticacaoandroidpost) | **POST** /autenticacao/android/ | Autentica um usuário que ainda não é cliente.
+*UsersAPI* | [**accountAutenticacaoIosPost**](docs/UsersAPI.md#accountautenticacaoiospost) | **POST** /autenticacao/ios/ | Autentica um usuário que ainda não é cliente.
 *UsersAPI* | [**accountAutenticacaoPost**](docs/UsersAPI.md#accountautenticacaopost) | **POST** /autenticacao/ | Autentica um usuário que ainda não é cliente.
 *UsersAPI* | [**accountAutenticacaoRedefinirSenhaConfirmarSmsPost**](docs/UsersAPI.md#accountautenticacaoredefinirsenhaconfirmarsmspost) | **POST** /autenticacao/redefinir-senha/confirmar-sms | Confirmação do código para redefinição de senha
 *UsersAPI* | [**accountAutenticacaoRedefinirSenhaEnviarSmsPost**](docs/UsersAPI.md#accountautenticacaoredefinirsenhaenviarsmspost) | **POST** /autenticacao/redefinir-senha/enviar-sms | Solicitar envio do código para redefinição de senha via SMS
 *UsersAPI* | [**accountAutenticacaoRedefinirSenhaNovaSenhaPost**](docs/UsersAPI.md#accountautenticacaoredefinirsenhanovasenhapost) | **POST** /autenticacao/redefinir-senha/nova-senha | Salvar nova senha
 *UsersAPI* | [**accountAutenticacaoRedefinirSenhaPost**](docs/UsersAPI.md#accountautenticacaoredefinirsenhapost) | **POST** /autenticacao/redefinir-senha | Solicitar início da redefinição de senha
+*UsersAPI* | [**accountAutenticacaoWebPost**](docs/UsersAPI.md#accountautenticacaowebpost) | **POST** /autenticacao/web/ | Autentica um usuário que ainda não é cliente.
 *UsersAPI* | [**accountDocumentoConfirmacaoGet**](docs/UsersAPI.md#accountdocumentoconfirmacaoget) | **GET** /perfil/{cpf}/documento/confirmacao/ | Consulta o status de confirmação do documento que foi submetido
 *UsersAPI* | [**accountDocumentoPut**](docs/UsersAPI.md#accountdocumentoput) | **PUT** /perfil/{cpf}/documento/ | Anexa ou atualiza documento para conferencia de autenticidade do perfil.
 *UsersAPI* | [**accountIdentificacaoPost**](docs/UsersAPI.md#accountidentificacaopost) | **POST** /identificacao/ | Cria um login para usuário.
