@@ -11,12 +11,12 @@ import Foundation
 
 @objc public class Pendencia: NSObject, Codable { 
 
-    public enum TipoPendencia: String, Codable {
+    public enum TipoPendencia: String, Codable, CaseIterable {
         case cpf = "cpf"
         case identidade = "identidade"
         case endereco = "endereco"
     }
-    public enum StatusPendencia: String, Codable {
+    public enum StatusPendencia: String, Codable, CaseIterable {
         case registrada = "registrada"
         case documentos = "documentos"
         case enviada = "enviada"

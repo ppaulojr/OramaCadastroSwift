@@ -11,7 +11,7 @@ import Foundation
 
 @objc public class ContaBancaria: NSObject, Codable { 
 
-    public enum Tipo: String, Codable {
+    public enum Tipo: String, Codable, CaseIterable {
         case cc = "CC"
         case cp = "CP"
     }
@@ -27,18 +27,8 @@ import Foundation
     public var digito: String
     /** Informação que define se é uma conta conjunta. Caso seja, deve ser definido como true. */
     public var contaConjunta: Bool = false
-    public var contaConjuntaNum: NSNumber? {
-        get {
-            return contaConjunta as NSNumber?
-        }
-    }
     /** Informação se o segundo participante (co-titular) é o titular da conta, caso não seja, o primeiro participante quem esta preenchendo a conta é o titular. */
     public var segundoParticipanteTitular: Bool = false
-    public var segundoParticipanteTitularNum: NSNumber? {
-        get {
-            return segundoParticipanteTitular as NSNumber?
-        }
-    }
     /** CPF do co-titular caso seja conta conjunta. CPF deve ser válido. O CPF tem que ter os 11 dígitos com a máscara incluindo os pontos e hífen.  - Obrigatório caso a conta bancária seja conta conjunta */
     public var cpfCotitular: String?
 

@@ -11,14 +11,14 @@ import Foundation
 
 @objc public class Documento: NSObject, Codable { 
 
-    public enum TipoDocumento: String, Codable {
+    public enum TipoDocumento: String, Codable, CaseIterable {
         case carteiraDeHabilitaçãoCnh = "Carteira de Habilitação - CNH"
         case passaporte = "Passaporte"
         case cartIdentEstrangeiroRne = "Cart. Ident. Estrangeiro - RNE"
         case cartIdentidadeProfissional = "Cart. Identidade Profissional"
         case carteiraDeIdentidadeRg = "Carteira de Identidade / RG"
     }
-    public enum OrgaoExpedidor: String, Codable {
+    public enum OrgaoExpedidor: String, Codable, CaseIterable {
         case ifp = "IFP"
         case detran = "DETRAN"
         case consRegDeAdministração = "Cons. Reg. de Administração"

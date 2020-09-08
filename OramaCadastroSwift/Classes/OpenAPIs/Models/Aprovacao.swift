@@ -11,7 +11,7 @@ import Foundation
 
 @objc public class Aprovacao: NSObject, Codable { 
 
-    public enum Aprovado: String, Codable {
+    public enum Aprovado: String, Codable, CaseIterable {
         case aprovado = "APROVADO"
         case pendente = "PENDENTE"
         case emAnálise = "EM ANÁLISE"

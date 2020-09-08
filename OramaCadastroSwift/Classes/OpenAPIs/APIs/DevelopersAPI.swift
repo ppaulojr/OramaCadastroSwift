@@ -15,11 +15,17 @@ extension OramaCadastroSwiftAPI {
      Cria um login para usuário.
      
      - parameter loginSenhaObjeto: (body) Dados para criação do login 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func accountIdentificacaoParceiroPost(loginSenhaObjeto: LoginSenhaObjeto, completion: @escaping ((_ data: LoginCriado?,_ error: Error?) -> Void)) {
-        accountIdentificacaoParceiroPostWithRequestBuilder(loginSenhaObjeto: loginSenhaObjeto).execute { (response, error) -> Void in
-            completion(response?.body, error)
+    open class func accountIdentificacaoParceiroPost(loginSenhaObjeto: LoginSenhaObjeto, apiResponseQueue: DispatchQueue = OramaCadastroSwiftAPI.apiResponseQueue, completion: @escaping ((_ data: LoginCriado?,_ error: Error?) -> Void)) {
+        accountIdentificacaoParceiroPostWithRequestBuilder(loginSenhaObjeto: loginSenhaObjeto).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
         }
     }
 
