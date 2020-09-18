@@ -78,6 +78,13 @@ import Foundation
             return investidorQualificado as NSNumber?
         }
     }
+    /** Habilita o RLP para o usuário */
+    public var habilitarRLP: Bool? = false
+    public var habilitarRLPNum: NSNumber? {
+        get {
+            return habilitarRLP as NSNumber?
+        }
+    }
     /** Definição de Nacionalidade de acordo com o Art. 12 da CF */
     public var nacionalidade: Nacionalidade?
     /** Unidade da Federação em que a pessoa nasceu  - É obrigatório caso &#39;nacinalidade&#39; seja &#39;Brasileiro nato&#39; */
@@ -104,10 +111,11 @@ import Foundation
     public var contaBancaria: [ContaBancaria]?
     public var frontEnd: FrontEndStep?
 
-    public init(usPerson: Bool?, politicamenteExposto: Bool?, investidorQualificado: Bool?, nacionalidade: Nacionalidade?, ufNascimento: UfNascimento?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, cpfConjuge: String?, nomeMae: String?, login: LoginObjeto?, documento: [Documento]?, profissao: DadosProfissionais?, endereco: Endereco?, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?, frontEnd: FrontEndStep?) {
+    public init(usPerson: Bool?, politicamenteExposto: Bool?, investidorQualificado: Bool?, habilitarRLP: Bool?, nacionalidade: Nacionalidade?, ufNascimento: UfNascimento?, cidadeNascimento: String?, paisNascimento: String?, sexo: Sexo?, estadoCivil: EstadoCivil?, nomeConjuge: String?, cpfConjuge: String?, nomeMae: String?, login: LoginObjeto?, documento: [Documento]?, profissao: DadosProfissionais?, endereco: Endereco?, patrimonio: DadosPatrimonial?, contaBancaria: [ContaBancaria]?, frontEnd: FrontEndStep?) {
         self.usPerson = usPerson
         self.politicamenteExposto = politicamenteExposto
         self.investidorQualificado = investidorQualificado
+        self.habilitarRLP = habilitarRLP
         self.nacionalidade = nacionalidade
         self.ufNascimento = ufNascimento
         self.cidadeNascimento = cidadeNascimento
